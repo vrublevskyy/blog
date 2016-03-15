@@ -27,12 +27,15 @@ const users = {
 };
 
 const home = function (request, reply) {
-
-    reply('<!DOCTYPE html><html><head><title>Login page</title></head><body><h3>Welcome ' +
+/*
+    reply.file('<!DOCTYPE html><html><head><title>Login page</title></head><body><h3>Welcome ' +
       request.auth.credentials.name +
       '!</h3><br/><form method="get" action="/logout">' +
       '<input type="submit" value="Logout">' +
       '</form></body></html>');
+
+*/
+	reply.file('/root/pec2/client/buildStructure.html')
 };
 
 const login = function (request, reply) {
@@ -64,14 +67,16 @@ const login = function (request, reply) {
 
     if (request.method === 'get' ||
         message) {
-
+/*
         return reply('<html><head><title>Login page</title></head><body>' +
             (message ? '<h3>' + message + '</h3><br/>' : '') +
             '<form method="post" action="/login">' +
             'Username: <input type="text" name="username"><br>' +
             'Password: <input type="password" name="password"><br/>' +
             '<input type="submit" value="Login"></form></body></html>');
-    }
+*/
+	return reply.file('/root/pec2/client/login.html')  
+  }
 
     const sid = String(++uuid);
     request.server.app.cache.set(sid, { account: account }, 0, (err) => {
@@ -92,6 +97,51 @@ const logout = function (request, reply) {
     return reply.redirect('/');
 };
 
+
+
+const server = new Hapi.Server();
+server.connection({
+ host: '0.0.0.0',
+ port: 80,
+ tls: {
+    key: FS.readFileSync('../certs/blog-key.pem', 'utf8'),
+    cert: FS.readFileSync('../certs/blog-cert.pem', 'utf8')
+ } });
+
+
+server.register([require('hapi-auth-cookie'),require('inert')], (err) => {
+
+    if (err) {
+        throw err;
+    }
+
+    const cache = server.cache({ segment: 'sessions', expiresIn: 3 * 24 * 60 * 60 * 1000 });
+    server.app.cache = cache;
+
+    server.auth.strategy('session', 'cookie', true, {
+        password: 'password-should-be-32-characters',
+        cookie: 'sid-example',
+        redirectTo: false,
+        isSecure: true,
+        validateFunc: function (request, session, callback) {
+
+            cache.get(session.sid, (err, cached) => {
+
+                if (err) {
+                    return callback(err, false);
+                }
+
+                if (!cached) {
+                    return callback(null, false);
+                }
+
+                return callback(null, true, cached.account);
+            });
+        }
+    });
+
+
+});
 server.route({
     method: 'GET',
     path: '/js/{param*}',
@@ -122,6 +172,7 @@ server.route({
         }
     }
 });
+
 server.route({
     method: 'GET',
     path: '/{param*}',
@@ -134,51 +185,6 @@ server.route({
 });
 
 
-
-const server = new Hapi.Server();
-server.connection({
- host: '0.0.0.0',
- port: 80,
- tls: {
-    key: FS.readFileSync('../certs/blog-key.pem', 'utf8'),
-    cert: FS.readFileSync('../certs/blog-cert.pem', 'utf8')
- } });
-
-
-server.register(require('hapi-auth-cookie'), (err) => {
-
-    if (err) {
-        throw err;
-    }
-
-    const cache = server.cache({ segment: 'sessions', expiresIn: 3 * 24 * 60 * 60 * 1000 });
-    server.app.cache = cache;
-
-    server.auth.strategy('session', 'cookie', true, {
-        password: 'password-should-be-32-characters',
-        cookie: 'sid-example',
-        redirectTo: '/login',
-        isSecure: true,
-        validateFunc: function (request, session, callback) {
-
-            cache.get(session.sid, (err, cached) => {
-
-                if (err) {
-                    return callback(err, false);
-                }
-
-                if (!cached) {
-                    return callback(null, false);
-                }
-
-                return callback(null, true, cached.account);
-            });
-        }
-    });
-
-
-});
-
     server.route([
         { method: 'GET', path: '/', config: { handler: home } },
         { method: ['GET', 'POST'], path: '/login', config: { handler: login, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } } },
@@ -189,4 +195,4 @@ server.register(require('hapi-auth-cookie'), (err) => {
 
         console.log('Server ready');
     });
-});
+
