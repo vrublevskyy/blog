@@ -1,3 +1,5 @@
+'use strict';
+/*
 var    mongoose = require('mongoose');
 
 //la base de datos esta en el mismo servidor
@@ -11,8 +13,7 @@ var db = mongoose.connection;
 
 var control=require('./controllers/facultades');
 
-'use strict';
-
+*/
 const Hapi = require('hapi');
 const FS = require('fs');
 let uuid = 1;       // Use seq instead of proper unique identifiers for demo only
@@ -91,13 +92,56 @@ const logout = function (request, reply) {
     return reply.redirect('/');
 };
 
+server.route({
+    method: 'GET',
+    path: '/js/{param*}',
+    handler: {
+        directory: {
+            path: '/root/pec2/client/js',
+            listing: true
+        }
+    }
+});
+server.route({
+    method: 'GET',
+    path: '/css/{param*}',
+    handler: {
+        directory: {
+            path: '/root/pec2/client/css',
+            listing: true
+        }
+    }
+});
+server.route({
+    method: 'GET',
+    path: '/dist/{param*}',
+    handler: {
+        directory: {
+            path: '/root/pec2/client/dist',
+            listing: true
+        }
+    }
+});
+server.route({
+    method: 'GET',
+    path: '/{param*}',
+    handler: {
+        directory: {
+            path: '/root/pec2/client/',
+            listing: true
+        }
+    }
+});
+
+
+
 const server = new Hapi.Server();
 server.connection({
  host: '0.0.0.0',
  port: 80,
  tls: {
-    key: FS.readFileSync('./certs/blog-key.pem', 'utf8'),
-    cert: FS.readFileSync('./certs/blog-cert.pem', 'utf8')
+    key: FS.readFileSync('../certs/blog-key.pem', 'utf8'),
+    cert: FS.readFileSync('../certs/blog-cert.pem', 'utf8')
  } });
 
 
@@ -131,6 +175,9 @@ server.register(require('hapi-auth-cookie'), (err) => {
             });
         }
     });
+
+
+});
 
     server.route([
         { method: 'GET', path: '/', config: { handler: home } },
