@@ -75,7 +75,7 @@ const login = function (request, reply) {
             'Password: <input type="password" name="password"><br/>' +
             '<input type="submit" value="Login"></form></body></html>');
 */
-	return reply.file('/root/pec2/client/login.html')  
+	return reply.file('/root/pec2/client/login.html')
   }
 
     const sid = String(++uuid);
@@ -109,7 +109,7 @@ server.connection({
  } });
 
 
-server.register([require('hapi-auth-cookie'),require('inert')], (err) => {
+server.register([require('hapi-auth-cookie'),require('inert'),require('vision')], (err) => {
 
     if (err) {
         throw err;
@@ -139,6 +139,15 @@ server.register([require('hapi-auth-cookie'),require('inert')], (err) => {
             });
         }
     });
+
+    server.views({
+        engines: {
+            html: require('handlebars')
+        },
+        relativeTo: __dirname,
+        path: 'templates'
+    });
+
 
 
 });
@@ -195,4 +204,3 @@ server.route({
 
         console.log('Server ready');
     });
-
