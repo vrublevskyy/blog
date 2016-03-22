@@ -44,23 +44,27 @@ const login = function (request, reply) {
 
     if (request.method === 'post') {
 
-        if (!request.payload.username ||
+        if (!request.payload.user ||
             !request.payload.password) {
 
             message = 'Missing username or password';
         }
         else {
-            userController.findByUser(request.payload.username,function (err,user) {
+            userController.findByUser(request.payload.user,function (err,user) {
                 if (!err) {
                   account=user;
                 }
-            });
+                else {
+                  message = 'Invalid username or password';
+                }
+
             if (!account ||
                 account.password !== request.payload.password) {
 
                 message = 'Invalid username or password';
             }
         }
+        });
     }
 
     if (request.method === 'get' ||
@@ -97,7 +101,7 @@ const logout = function (request, reply) {
 
 const register = function (request, reply) {
 
-  
+
     userController.addUser(request.payload,function (err) {
       if (!err) {
         return reply.redirect('/login');
@@ -106,7 +110,7 @@ const register = function (request, reply) {
 	return reply.redirect('/')
 	}
     })
-   
+
 };
 
 
