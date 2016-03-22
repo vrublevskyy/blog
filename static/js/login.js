@@ -6,11 +6,11 @@ $.ajax({
     console.log(reply)
 
     if (reply.isLoggedIn) {
-      $('#navbarLogin').append'(<li><a href="https://www.paradisecity.me:80/manager">'+reply.user+'</a></li>');
+      $('#navbarLogin').append'(<li><a href="https://www.paradisecity.me:8082/manager">'+reply.user+'</a></li>');
 
       }
       else {
-        $('#navbarLogin').append'(<li><a href="https://www.paradisecity.me:80/login">Iniciar sesión</a></li>');
+        $('#navbarLogin').append'(<li><a href="https://www.paradisecity.me:8082/login">Iniciar sesión</a></li>');
      }
 
   },

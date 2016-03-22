@@ -1,9 +1,9 @@
 'use strict';
-/*
+
 var    mongoose = require('mongoose');
 
 //la base de datos esta en el mismo servidor
-mongoose.connect('mongodb://localhost/facultades');
+mongoose.connect('mongodb://localhost/blog');
 
 var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
@@ -11,20 +11,14 @@ var db = mongoose.connection;
       console.log("OPEN")
     });
 
-var control=require('./controllers/facultades');
+var userController =require('./controllers/user.js');
 
-*/
+
 const Hapi = require('hapi');
 const FS = require('fs');
 let uuid = 1;       // Use seq instead of proper unique identifiers for demo only
 
-const users = {
-    john: {
-        id: 'john',
-        password: 'password',
-        name: 'John Doe'
-    }
-};
+
 
 const home = function (request, reply) {
 /*
@@ -56,7 +50,11 @@ const login = function (request, reply) {
             message = 'Missing username or password';
         }
         else {
-            account = users[request.payload.username];
+            userController.findByUser(request.payload.username,function (err,user) {
+                if (!err) {
+                  account=user;
+                }
+            });
             if (!account ||
                 account.password !== request.payload.password) {
 
@@ -75,7 +73,7 @@ const login = function (request, reply) {
             'Password: <input type="password" name="password"><br/>' +
             '<input type="submit" value="Login"></form></body></html>');
 */
-	return reply.file('/root/pec2/client/login.html')
+	return reply.file('/root/pec2/server/templates/login.html')
   }
 
     const sid = String(++uuid);
@@ -97,6 +95,16 @@ const logout = function (request, reply) {
     return reply.redirect('/');
 };
 
+const register = function (request, reply) {
+
+    console.log(request.body);
+    userController.addUser(request.body,function (err) {
+      if (!err) {
+        return reply.redirect('/login');
+      }
+    })
+    return reply.redirect('/login');
+};
 
 
 const server = new Hapi.Server();
@@ -186,7 +194,8 @@ server.route({
     server.route([
         { method: 'GET', path: '/', config: { handler: home } },
         { method: ['GET', 'POST'], path: '/login', config: { handler: login, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } } },
-        { method: 'GET', path: '/logout', config: { handler: logout } }
+        { method: 'GET', path: '/logout', config: { handler: logout } },
+        { method: 'GET', path: '/register', config: { handler: register } }
     ]);
 
     server.start(() => {

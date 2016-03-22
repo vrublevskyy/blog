@@ -10,10 +10,12 @@ var exports = module.exports
 exports.addUser=function(data,callback) {
 
   var user=new User({
-    name: data.user,
-    pass: data.pass
+    user: data.user,
+    name: data.name,
+    password: data.password,
+    email: data.email
   });
-  user.save(function(err, facultad1) {
+  user.save(function(err, user) {
     if (callback) {
       return callback(err);
     }
@@ -22,27 +24,27 @@ exports.addUser=function(data,callback) {
 
 //Devuelve todos los datos
 exports.getUsers = function(callback) {
-  User.find(function(err, facultades) {
+  User.find(function(err, users) {
     if (callback) {
-      return callback(err,facultades);
+      return callback(err,users);
     }
   });
 };
 
 //Busca por nombre
-exports.findPassByName=function(filter,callback) {
-  User.findOne({ 'name': filter }, '', function (err, facultad) {
+exports.findByUser=function(filter,callback) {
+  User.findOne({ 'user': filter }, '', function (err, user) {
     if (callback) {
-      return callback(err,facultad);
+      return callback(err,user);
     }
   })
 }
 
 //Busca por ID
 exports.findById=function(filter,callback) {
-  User.findOne({ '_id': filter }, '', function (err, facultad) {
+  User.findOne({ '_id': filter }, '', function (err, user) {
     if (callback) {
-      return callback(err,facultad);
+      return callback(err,user);
     }
   })
 }
@@ -57,7 +59,7 @@ exports.remove=function(id,callback) {
   });
 }
 
-//Actuañiza la facultad, si no existe no lo crea
+//Actuañiza la user, si no existe no lo crea
 exports.updatePass=function(id,data,callback) {
 	 User.update({_id: id},{ 'pass':data.pass}, {upsert: false}, function(err,data) {
         if (callback) {
