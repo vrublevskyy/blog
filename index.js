@@ -153,34 +153,25 @@ server.register([require('hapi-auth-cookie'),require('inert'),require('vision')]
 });
 server.route({
     method: 'GET',
-    path: '/js/{param*}',
+    path: '/static/js/{param*}',
     handler: {
         directory: {
-            path: '/root/pec2/client/js',
+            path: '/root/pec2/server/static/js',
             listing: true
         }
     }
 });
 server.route({
     method: 'GET',
-    path: '/css/{param*}',
+    path: '/static/css/{param*}',
     handler: {
         directory: {
-            path: '/root/pec2/client/css',
+            path: '/root/pec2/server/static/css',
             listing: true
         }
     }
 });
-server.route({
-    method: 'GET',
-    path: '/dist/{param*}',
-    handler: {
-        directory: {
-            path: '/root/pec2/client/dist',
-            listing: true
-        }
-    }
-});
+
 
 
 
