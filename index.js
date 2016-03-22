@@ -181,7 +181,7 @@ server.route({
 });
 server.route({
     method: 'GET',
-    path: '/static/css/{param*}',
+    path: '/static/fonts/{param*}',
     handler: {
         directory: {
             path: '/root/pec2/server/static/fonts',
