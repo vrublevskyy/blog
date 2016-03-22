@@ -102,7 +102,7 @@ const logout = function (request, reply) {
 const server = new Hapi.Server();
 server.connection({
  host: '0.0.0.0',
- port: 80,
+ port: 8082,
  tls: {
     key: FS.readFileSync('../certs/blog-key.pem', 'utf8'),
     cert: FS.readFileSync('../certs/blog-cert.pem', 'utf8')
@@ -121,7 +121,7 @@ server.register([require('hapi-auth-cookie'),require('inert'),require('vision')]
     server.auth.strategy('session', 'cookie', true, {
         password: 'password-should-be-32-characters',
         cookie: 'sid-example',
-        redirectTo: false,
+        redirectTo: '/',
         isSecure: true,
         validateFunc: function (request, session, callback) {
 
@@ -171,8 +171,16 @@ server.route({
         }
     }
 });
-
-
+server.route({
+    method: 'GET',
+    path: '/static/css/{param*}',
+    handler: {
+        directory: {
+            path: '/root/pec2/server/static/fonts',
+            listing: true
+        }
+    }
+});
 
 
     server.route([
