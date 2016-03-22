@@ -92,18 +92,21 @@ const login = function (request, reply) {
 const logout = function (request, reply) {
 
     request.cookieAuth.clear();
-    return reply.redirect('/');
+    return reply.redirect('/login');
 };
 
 const register = function (request, reply) {
 
-    console.log(request.body);
-    userController.addUser(request.body,function (err) {
+  
+    userController.addUser(request.payload,function (err) {
       if (!err) {
         return reply.redirect('/login');
-      }
+      }else {
+	console.log(err)
+	return reply.redirect('/')
+	}
     })
-    return reply.redirect('/login');
+   
 };
 
 
@@ -195,7 +198,7 @@ server.route({
         { method: 'GET', path: '/', config: { handler: home } },
         { method: ['GET', 'POST'], path: '/login', config: { handler: login, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } } },
         { method: 'GET', path: '/logout', config: { handler: logout } },
-        { method: 'GET', path: '/register', config: { handler: register } }
+        { method: ['GET', 'POST'], path: '/register',  config: { handler: register, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } }}
     ]);
 
     server.start(() => {

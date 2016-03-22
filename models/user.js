@@ -8,10 +8,8 @@ var mongoose = require('mongoose'),
         required: true
       },
       'password': {
-        'type': {
-          type: String,
-          required: true
-        }
+         type: String,
+         required: true
       },
       'email': {
         type: String,

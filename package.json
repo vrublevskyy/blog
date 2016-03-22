@@ -16,11 +16,11 @@
     "test": "node ./test/index.js"
   },
   "dependencies": {
-    "express": "~4.13.4",
-    "mongoose": "~4.4.2",
     "body-parser": "~1.14.2",
+    "express": "~4.13.4",
     "method-override": "~2.3.5",
-    "polyline": "~0.2.0",
-    "path": "~0.12.7"
+    "mongoose": "^4.4.8",
+    "path": "~0.12.7",
+    "polyline": "~0.2.0"
   }
 }

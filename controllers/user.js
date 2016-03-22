@@ -8,7 +8,6 @@ var exports = module.exports
 
 //Añade nueva facultad
 exports.addUser=function(data,callback) {
-
   var user=new User({
     user: data.user,
     name: data.name,
