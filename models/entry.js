@@ -2,7 +2,7 @@
 var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
-    var Entry =  mongoose.Schema ({
+    var entry =  mongoose.Schema ({
       'owner': {
         type: String,
         required: true,
@@ -15,8 +15,8 @@ var mongoose = require('mongoose'),
       'state': {
           type: String,
           required: true,
-          enum: ['Published', 'Empty', 'InProgress'],   //en esta version solo se utiliza Point
-          default: 'Empty'
+          enum: ['Published', 'InProgress'],
+          default: 'InProgress'
         },
         'record':
           [
@@ -63,4 +63,4 @@ var mongoose = require('mongoose'),
       }
     });
 
-module.exports=mongoose.model('Entry', user);
+module.exports=mongoose.model('Entry', entry);

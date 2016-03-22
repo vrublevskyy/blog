@@ -35,7 +35,7 @@ const home = function (request, reply) {
       '</form></body></html>');
 
 */
-	reply.file('/root/pec2/client/buildStructure.html')
+	reply.view('index', { user: request.auth.credentials.name });
 };
 
 const login = function (request, reply) {
@@ -182,16 +182,6 @@ server.route({
     }
 });
 
-server.route({
-    method: 'GET',
-    path: '/{param*}',
-    handler: {
-        directory: {
-            path: '/root/pec2/client/',
-            listing: true
-        }
-    }
-});
 
 
     server.route([

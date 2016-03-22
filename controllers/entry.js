@@ -10,7 +10,7 @@ var exports = module.exports
 exports.addEntry=function(data,callback) {
 
   var entry=new Entry({
-    'owner': data.user,
+    'owner': data.owner,
     'title':data.title,
     'state':data.state,
     'record':[data.record]
