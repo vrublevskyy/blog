@@ -113,6 +113,20 @@ $('#newIndex').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
   }
 });
 
+function sendStructure(data) {
+
+  $.ajax({
+    url: 'https://www.paradisecity.me:8082/saveStructure',
+    type: 'POST',
+    dataType: 'json',
+    success: function(reply) {
+      console.log(reply);
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      console.log("Status: " + textStatus); console.log("Error: " + errorThrown);
+    }
+  });
+}
 
 function next() {
   var res = _.map($('.grid-stack .grid-stack-item:visible'), function (el) {
@@ -138,5 +152,6 @@ function next() {
     content:res
   }
 
+  sendStructure(entry);
   console.log(JSON.stringify(entry))
 }
