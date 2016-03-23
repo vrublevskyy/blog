@@ -109,8 +109,8 @@ const buildStructure = function (request, reply) {
 };
 
 const saveStructure = function (request, reply) {
-
-  userController.addEntry(request.payload,function (err) {
+  console.log(request.payload);
+  entryController.addEntry(request.payload,function (err) {
     if (!err) {
       return reply.redirect('/');
     }else {
@@ -118,8 +118,6 @@ const saveStructure = function (request, reply) {
       return reply.redirect('/login')
     }
   })
-
-  return reply.redirect('/login');
 };
 
 const server = new Hapi.Server();
