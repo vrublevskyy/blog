@@ -119,6 +119,7 @@ function sendStructure(data) {
     url: 'https://www.paradisecity.me:8082/saveStructure',
     type: 'POST',
     dataType: 'json',
+    data:data,
     success: function(reply) {
       console.log(reply);
     },
