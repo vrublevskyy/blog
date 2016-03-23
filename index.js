@@ -103,6 +103,10 @@ const register = function (request, reply) {
   })
 
 };
+const buildStructure = function (request, reply) {
+
+  reply.view('buildStructure', { user: request.auth.credentials.name });
+};
 
 const saveStructure = function (request, reply) {
 
@@ -207,7 +211,8 @@ server.connection({
     { method: ['GET', 'POST'], path: '/login', config: { handler: login, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } } },
     { method: 'GET', path: '/logout', config: { handler: logout } },
     { method: ['GET', 'POST'], path: '/register',  config: { handler: register, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } }},
-    { method: 'POST', path: '/saveStructure', config: { handler: saveStructure } }
+    { method: 'POST', path: '/saveStructure', config: { handler: saveStructure } },
+    { method: 'GET', path: '/buildStructure', config: { handler: buildStructure } }
   ]);
 
   server.start(() => {
