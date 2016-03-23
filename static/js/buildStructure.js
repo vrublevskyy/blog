@@ -118,7 +118,6 @@ function sendStructure(data) {
   $.ajax({
     url: 'https://www.paradisecity.me:8082/saveStructure',
     type: 'POST',
-    dataType: 'json',
     data:data,
     success: function(reply) {
       console.log(reply);
@@ -154,6 +153,6 @@ function next() {
     content:res
   }
 
-  sendStructure(entry);
+  sendStructure(JSON.stringify(entry));
   console.log(JSON.stringify(entry))
 }

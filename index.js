@@ -109,8 +109,8 @@ const buildStructure = function (request, reply) {
 };
 
 const saveStructure = function (request, reply) {
-  console.log(request.payload);
-  entryController.addEntry(request.payload,function (err) {
+  console.log(JSON.parse(request.payload));
+  entryController.addEntry(JSON.parse(request.payload),function (err) {
     if (!err) {
       return reply.redirect('/');
     }else {
