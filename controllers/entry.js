@@ -13,7 +13,8 @@ exports.addEntry=function(data,callback) {
     'owner': data.owner,
     'title':data.title,
     'state':data.state,
-    'record':[data.record]
+    'date':data.date,
+    'content':data.content
   });
   entry.save(function(err, facultad1) {
     if (callback) {

@@ -149,6 +149,7 @@ function next() {
     owner:document.getElementById("user").text,
     title: document.getElementById("title").value,
     state:'InProgress',
+    date:Date.now(),
     content:res
   }
 
