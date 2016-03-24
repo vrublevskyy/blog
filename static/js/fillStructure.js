@@ -23,19 +23,19 @@ function loadByID() {
         _.each(items, function (node) {
           switch (node.data.type) {
             case "title":
-              grid.addWidget($('<textarea class="boxContent" style="font-size: 20pt resize:vertical"></textarea>'),
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 20pt resize:vertical"></textarea>'),
               node.x, node.y, node.width, node.height);
             break;
             case "text":
-              grid.addWidget($('<textarea class="boxContent" style="font-size: 13pt resize:vertical"></textarea>'),
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 13pt resize:vertical"></textarea>'),
               node.x, node.y, node.width, node.height);
             break;
             case "image":
-              grid.addWidget($('<div class="boxContent" ><div style="margin-left:30px"><label >Image URL: </label></br><input style="width:200px" type="text" name="imageURL"></input></div></div>'),
+              grid.addWidget($('<div customType='+node.data.type+' class="boxContent" ><div style="margin-left:30px"><label >Image URL: </label></br><input style="width:200px" type="text" name="imageURL"></input></div></div>'),
               node.x, node.y, node.width, node.height);
             break;
             case "comments":
-              grid.addWidget($('<div class="detailBox boxContent">  \
+              grid.addWidget($('<div customType='+node.data.type+' class="detailBox boxContent">  \
                   <div class="titleBox">\
                     <label>Comment Box</label>\
                       <button type="button" class="close" aria-hidden="true">&times;</button>\
@@ -58,7 +58,7 @@ function loadByID() {
               node.x, node.y, node.width, node.height);
             break;
             case "index":
-              grid.addWidget($('<textarea class="boxContent"></textarea>'),
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent"></textarea>'),
               node.x, node.y, node.width, node.height);
             break;
           }
@@ -99,7 +99,9 @@ function next() {
   var res = _.map($('.grid-stack .grid-stack-item:visible'), function (el) {
   el = $(el);
   customtype=el.context.attributes.customtype.value;
+  var value=el.context.value;
   var node = el.data('_gridstack_node');
+  console.log(el)
   return {
       id: el.attr('data-custom-id'),
       x: node.x,
@@ -107,7 +109,9 @@ function next() {
       width: node.width,
       height: node.height,
       data:{
-        type:customtype
+        type:customtype,
+        properties:''.
+        content:
       }
   };
   });
