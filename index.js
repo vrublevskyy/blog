@@ -118,7 +118,7 @@ const saveStructure = function (request, reply) {
       return reply.redirect('/login')
     }
   })
-  
+
 };
 
 const fillStructure = function (request, reply) {
@@ -137,7 +137,7 @@ const fillStructure = function (request, reply) {
   }
   else if (request.method === 'get') {
     const id = request.params.documentId;
-    reply.view('fillStructure', { user: request.auth.credentials.name, documentId: id });
+    reply.view('fillStructure', { user: request.auth.credentials.name, documentID: id });
   }
 };
 
@@ -231,7 +231,7 @@ server.connection({
     { method: 'GET', path: '/logout', config: { handler: logout } },
     { method: ['GET', 'POST'], path: '/register',  config: { handler: register, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } }},
     { method: 'POST', path: '/saveStructure', config: { handler: saveStructure } },
-    { method: 'GET', path: '/buildStructure', config: { handler: buildStructure } }
+    { method: 'GET', path: '/buildStructure', config: { handler: buildStructure } },
     { method: ['GET', 'POST'], path: '/fillStructure/{documentId?}', config: { handler: fillStructure } }
   ]);
 

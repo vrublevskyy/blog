@@ -109,7 +109,7 @@ function next() {
   });
 
   var entry={
-    id:owner:document.getElementById("documentID").text,
+    id:document.getElementById("documentID").text,
     owner:document.getElementById("user").text,
     title: document.getElementById("title").value,
     state:'InProgress',
