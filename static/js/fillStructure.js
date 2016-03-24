@@ -110,8 +110,8 @@ function next() {
       height: node.height,
       data:{
         type:customtype,
-        properties:''.
-        content:
+        properties:'',
+        content:value
       }
   };
   });
@@ -125,6 +125,6 @@ function next() {
     content:res
   }
 
-  preview(JSON.stringify(entry));
+  //preview(JSON.stringify(entry));
   console.log(JSON.stringify(entry))
 }
