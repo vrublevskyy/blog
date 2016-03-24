@@ -1,4 +1,4 @@
-function loadByID {
+function loadByID() {
   var options = {
     width: 6,
     float: false,
@@ -73,12 +73,9 @@ function loadByID {
   });
 }
 
-
-
-
+$( document ).ready(function() {
+    loadByID();
 });
-
-
 
 function preview(data) {
 
