@@ -141,6 +141,19 @@ const fillStructure = function (request, reply) {
   }
 };
 
+const getEntry = function (request, reply) {
+
+  entryController.findById(JSON.parse(request.payload.documentID),function (err) {
+    if (!err) {
+      reply(data);
+    }else {
+      console.log(err)
+      return reply.redirect('/login')
+    }
+
+  })
+};
+
 const server = new Hapi.Server();
 server.connection({
   host: '0.0.0.0',
@@ -232,7 +245,8 @@ server.connection({
     { method: ['GET', 'POST'], path: '/register',  config: { handler: register, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } }},
     { method: 'POST', path: '/saveStructure', config: { handler: saveStructure } },
     { method: 'GET', path: '/buildStructure', config: { handler: buildStructure } },
-    { method: ['GET', 'POST'], path: '/fillStructure/{documentId?}', config: { handler: fillStructure } }
+    { method: ['GET', 'POST'], path: '/fillStructure/{documentId?}', config: { handler: fillStructure } },
+    { method: ['GET', 'POST'], path: '/getEntry', config: { handler: getEntry } }
   ]);
 
   server.start(() => {

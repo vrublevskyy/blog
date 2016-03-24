@@ -1,4 +1,4 @@
-$(function () {
+function loadByID {
   var options = {
     width: 6,
     float: false,
@@ -6,68 +6,75 @@ $(function () {
   };
   $('#grid1').gridstack(options);
 
-  var items = [
-    {x: 0, y: 0, width: 5, height: 1,data:{'type':"title"}},
-    {x: 0, y: 2, width: 3, height: 4,data:{'type':"text"}},
-    {x: 3, y: 3, width: 2, height: 4,data:{'type':"image"}},
-    {x: 0, y: 6, width: 6, height: 5,data:{'type':"comments"}},
-    {x: 5, y: 1, width: 0, height: 5,data:{'type':"index"}}
+  const documentID=document.getElementById("documentID").text
+  $.ajax({
+    url: 'https://www.paradisecity.me:8082/getEntry',
+    type: 'POST',
+    dataType: 'json',
+    data:{
+      'documentID':documentID
+    },
+    success: function(reply) {
+      var items = reply.content;
 
-  ];
+      $('.grid-stack').each(function () {
+        var grid = $(this).data('gridstack');
 
-  $('.grid-stack').each(function () {
-    var grid = $(this).data('gridstack');
+        _.each(items, function (node) {
+          switch (node.data.type) {
+            case "title":
+              grid.addWidget($('<textarea class="boxContent" style="font-size: 20pt resize:vertical"></textarea>'),
+              node.x, node.y, node.width, node.height);
+            break;
+            case "text":
+              grid.addWidget($('<textarea class="boxContent" style="font-size: 13pt resize:vertical"></textarea>'),
+              node.x, node.y, node.width, node.height);
+            break;
+            case "image":
+              grid.addWidget($('<div class="boxContent" ><div style="margin-left:30px"><label >Image URL: </label></br><input style="width:200px" type="text" name="imageURL"></input></div></div>'),
+              node.x, node.y, node.width, node.height);
+            break;
+            case "comments":
+              grid.addWidget($('<div class="detailBox boxContent">  \
+                  <div class="titleBox">\
+                    <label>Comment Box</label>\
+                      <button type="button" class="close" aria-hidden="true">&times;</button>\
+                  </div>\
+                  <div class="commentBox">\
+                  </div>\
+                  <div class="actionBox">\
+                      <ul class="commentList">\
+                      </ul>\
+                      <form class="form-inline" role="form">\
+                          <div class="form-group">\
+                              <input class="form-control" type="text" placeholder="Your comments" />\
+                          </div>\
+                          <div class="form-group">\
+                              <button class="btn btn-default">Add</button>\
+                          </div>\
+                      </form>\
+                  </div>\
+              </div>'),
+              node.x, node.y, node.width, node.height);
+            break;
+            case "index":
+              grid.addWidget($('<textarea class="boxContent"></textarea>'),
+              node.x, node.y, node.width, node.height);
+            break;
+          }
 
-    _.each(items, function (node) {
-      switch (node.data.type) {
-        case "title":
-          grid.addWidget($('<textarea class="boxContent" style="font-size: 20pt resize:vertical"></textarea>'),
-          node.x, node.y, node.width, node.height);
-        break;
-        case "text":
-          grid.addWidget($('<textarea class="boxContent" style="font-size: 13pt resize:vertical"></textarea>'),
-          node.x, node.y, node.width, node.height);
-        break;
-        case "image":
-          grid.addWidget($('<div class="boxContent" ><div style="margin-left:30px"><label >Image URL: </label></br><input style="width:200px" type="text" name="imageURL"></input></div></div>'),
-          node.x, node.y, node.width, node.height);
-        break;
-        case "comments":
-          grid.addWidget($('<div class="detailBox boxContent">  \
-              <div class="titleBox">\
-                <label>Comment Box</label>\
-                  <button type="button" class="close" aria-hidden="true">&times;</button>\
-              </div>\
-              <div class="commentBox">\
-              </div>\
-              <div class="actionBox">\
-                  <ul class="commentList">\
-                  </ul>\
-                  <form class="form-inline" role="form">\
-                      <div class="form-group">\
-                          <input class="form-control" type="text" placeholder="Your comments" />\
-                      </div>\
-                      <div class="form-group">\
-                          <button class="btn btn-default">Add</button>\
-                      </div>\
-                  </form>\
-              </div>\
-          </div>'),
-          node.x, node.y, node.width, node.height);
-        break;
-        case "index":
-          grid.addWidget($('<textarea class="boxContent"></textarea>'),
-          node.x, node.y, node.width, node.height);
-        break;
-      }
+        }, this);
+      });
 
-    }, this);
-  });
-  $('.grid-stack').gridstack({
-    resizable: {
-        handles: ''
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      console.log("Status: " + textStatus); console.log("Error: " + errorThrown);
     }
-});
+  });
+}
+
+
+
 
 });
 

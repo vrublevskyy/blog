@@ -123,7 +123,7 @@ function sendStructure(data) {
       'structure':data
     },
     success: function(reply) {
-      window.location.href = 'https://www.paradisecity.me:8082/saveStructure/'+reply;
+      window.location.href = 'https://www.paradisecity.me:8082/fillStructure/'+reply;
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
       console.log("Status: " + textStatus); console.log("Error: " + errorThrown);
