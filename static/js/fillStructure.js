@@ -9,7 +9,7 @@ function loadByID() {
   const documentID=document.getElementById("documentID").text
   $.ajax({
     url: 'https://www.paradisecity.me:8082/getEntry',
-    type: 'get',
+    type: 'post',
     dataType: 'json',
     data:{
       'documentID':documentID

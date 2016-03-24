@@ -246,7 +246,7 @@ server.connection({
     { method: 'POST', path: '/saveStructure', config: { handler: saveStructure } },
     { method: 'GET', path: '/buildStructure', config: { handler: buildStructure } },
     { method: ['GET', 'POST'], path: '/fillStructure/{documentId?}', config: { handler: fillStructure } },
-    { method: ['GET'], path: '/getEntry', config: { handler: getEntry } }
+    { method: ['POST'], path: '/getEntry', config: { handler: getEntry } }
   ]);
 
   server.start(() => {
