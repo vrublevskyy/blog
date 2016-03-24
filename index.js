@@ -243,10 +243,10 @@ server.connection({
     { method: ['GET', 'POST'], path: '/login', config: { handler: login, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } } },
     { method: 'GET', path: '/logout', config: { handler: logout } },
     { method: ['GET', 'POST'], path: '/register',  config: { handler: register, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } }},
-    { method: 'POST', path: '/saveStructure', config: { handler: saveStructure,auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } }  } },
-    { method: 'GET', path: '/buildStructure', config: { handler: buildStructure,auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } }  } },
-    { method: ['GET', 'POST'], path: '/fillStructure/{documentId?}', config: { handler: fillStructure,auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } }  } },
-    { method: ['GET'], path: '/getEntry', config: { handler: getEntry,auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } }  } }
+    { method: 'POST', path: '/saveStructure', config: { handler: saveStructure } },
+    { method: 'GET', path: '/buildStructure', config: { handler: buildStructure } },
+    { method: ['GET', 'POST'], path: '/fillStructure/{documentId?}', config: { handler: fillStructure } },
+    { method: ['GET'], path: '/getEntry', config: { handler: getEntry } }
   ]);
 
   server.start(() => {
