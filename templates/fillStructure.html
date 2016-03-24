@@ -1,0 +1,150 @@
+<html lang="en"><head>
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Two grids demo</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/gridstack.css">
+  <link rel="stylesheet" href="../static/css/gridstack-extra.css">
+ <link rel="stylesheet" href="../static/css/fillStructure.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.0/jquery-ui.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+  <script src="../static/js/gridstack.js"></script>
+			<style>
+      @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js);
+
+      .detailBox  {
+          width:100%;
+          border:1px solid #bbb;
+      }
+      .titleBox {
+          background-color:#fdfdfd;
+          padding:10px;
+      }
+      .titleBox label{
+        color:#444;
+        margin:0;
+        display:inline-block;
+      }
+
+      .commentBox {
+          padding:10px;
+          border-top:1px dotted #bbb;
+      }
+      .commentBox .form-group:first-child, .actionBox .form-group:first-child {
+          width:80%;
+      }
+      .commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {
+          width:18%;
+      }
+      .actionBox .form-group * {
+          width:100%;
+      }
+      .taskDescription {
+          margin-top:10px 0;
+      }
+      .commentList {
+          padding:0;
+          list-style:none;
+          max-height:200px;
+          overflow:auto;
+      }
+      .commentList li {
+          margin:0;
+          margin-top:10px;
+      }
+      .commentList li > div {
+          display:table-cell;
+      }
+      .commenterImage {
+          width:30px;
+          margin-right:5px;
+          height:100%;
+          float:left;
+      }
+      .commenterImage img {
+          width:100%;
+          border-radius:50%;
+      }
+      .commentText p {
+          margin:0;
+      }
+      .sub-text {
+          color:#aaa;
+          font-family:verdana;
+          font-size:11px;
+      }
+      .actionBox {
+          border-top:1px dotted #bbb;
+          padding:10px;
+      }
+      </style>
+
+  <body>
+    <header class="navbar navbar-default navbar-fixed-top" role="banner" >
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">Edit your entry</a>
+        </div>
+        <nav class="collapse navbar-collapse" role="navigation">
+          <ul class="nav navbar-nav" style="margin-left:15px">
+            <li>
+              <button type="button" class="btn btn-default navbar-btn" style="margin-left:15px" onclick="cancel()">Cancel</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-default navbar-btn" style="margin-left:15px" onclick="back()">Next</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-default navbar-btn" style="margin-left:15px" onclick="next()">Next</button>
+            </li>
+            <li>
+              <a id="docID" class="navbar-brand">{{documentID}}</a>
+            </li>
+          </ul>
+          <ul id="navbarLogin" class="nav navbar-right navbar-nav">
+            <li class="dropdown">
+              <a id="user" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user}} <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Settings</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="https://www.paradisecity.me:8082/logout">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="container-fluid" style="margin-top:70px">
+
+      <div class="row" style="margin-bottom:30px">
+        <div class="col-md-1">
+          <label style="margin-left:90px">Title</label>
+        </div>
+        <div class="col-md-6">
+          <input id="title" type="text" class="form-control" placeholder="Name">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div  class="grid-stack grid-stack-6 grid-stack-instance-5576 ui-droppable" id="grid1"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../static/js/fillStructure.js"></script>
+  </body>
+  </html>

@@ -123,7 +123,6 @@ function sendStructure(data) {
       'structure':data
     },
     success: function(reply) {
-      console.log(reply);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
       console.log("Status: " + textStatus); console.log("Error: " + errorThrown);

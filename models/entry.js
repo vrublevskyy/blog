@@ -18,7 +18,7 @@ var entry =  mongoose.Schema ({
     enum: ['Published', 'InProgress'],
     default: 'InProgress'
   },
-  'date':{
+  'lastModification':{
     type: Date,
     required: true,
   },

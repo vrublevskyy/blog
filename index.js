@@ -64,7 +64,6 @@ const login = function (request, reply) {
               }
 
               request.cookieAuth.set({ sid: sid });
-              console.log(request.cookieAuth)
               return reply.redirect('/');
             });
           }
@@ -110,9 +109,21 @@ const buildStructure = function (request, reply) {
 
 const saveStructure = function (request, reply) {
   console.log(JSON.parse(request.payload.structure));
+  entryController.addEntry(JSON.parse(request.payload.structure),function (err,data) {
+    if (!err) {
+      reply.view('fillStructure', { user: request.auth.credentials.name, documentId: data._id });
+    }else {
+      console.log(err)
+      return reply.redirect('/login')
+    }
+  })
+};
+
+const fillStructure = function (request, reply) {
+  console.log(JSON.parse(request.payload.structure));
   entryController.addEntry(JSON.parse(request.payload.structure),function (err) {
     if (!err) {
-      return reply.redirect('/');
+      reply.view('view', { user: request.auth.credentials.name, documentId: data._id });
     }else {
       console.log(err)
       return reply.redirect('/login')
@@ -211,6 +222,7 @@ server.connection({
     { method: ['GET', 'POST'], path: '/register',  config: { handler: register, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } }},
     { method: 'POST', path: '/saveStructure', config: { handler: saveStructure } },
     { method: 'GET', path: '/buildStructure', config: { handler: buildStructure } }
+    { method: 'GET', path: '/fillStructure/{documentId}', config: { handler: fillStructure } }
   ]);
 
   server.start(() => {

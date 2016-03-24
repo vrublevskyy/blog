@@ -6,53 +6,53 @@ var exports = module.exports
 
 //Todos los metodos tienen un callback
 
-//Añade nueva facultad
+//Añade nueva entry
 exports.addEntry=function(data,callback) {
 
   var entry=new Entry({
     'owner': data.owner,
     'title':data.title,
     'state':data.state,
-    'date':data.date,
+    'lastModification':data.date,
     'content':data.content
   });
-  entry.save(function(err, facultad1) {
+  entry.save(function(err, data) {
     if (callback) {
-      return callback(err);
+      return callback(err,data);
     }
   });
 };
 
 //Devuelve todos los datos
-exports.getAllEntry = function(callback) {
-  Entry.find(function(err, facultades) {
+exports.getAllEntries = function(callback) {
+  Entry.find(function(err, entries) {
     if (callback) {
-      return callback(err,facultades);
+      return callback(err,entries);
     }
   });
 };
 
 //Busca por nombre
 exports.findByOwner=function(filter,callback) {
-  Entry.findOne({ 'owner': filter }, '', function (err, facultad) {
+  Entry.findOne({ 'owner': filter }, '', function (err, entry) {
     if (callback) {
-      return callback(err,facultad);
+      return callback(err,entry);
     }
   })
 }
 exports.findByTitle=function(filter,callback) {
-  Entry.findOne({ 'title': filter }, '', function (err, facultad) {
+  Entry.findOne({ 'title': filter }, '', function (err, entry) {
     if (callback) {
-      return callback(err,facultad);
+      return callback(err,entry);
     }
   })
 }
 
 //Busca por ID
 exports.findById=function(filter,callback) {
-  Entry.findOne({ '_id': filter }, '', function (err, facultad) {
+  Entry.findOne({ '_id': filter }, '', function (err, entry) {
     if (callback) {
-      return callback(err,facultad);
+      return callback(err,entry);
     }
   })
 }
@@ -67,7 +67,7 @@ exports.remove=function(id,callback) {
   });
 }
 
-//Actuañiza la facultad, si no existe no lo crea
+//Actuañiza la entry, si no existe no lo crea
 exports.updateTitle=function(id,data,callback) {
 	 Entry.update({_id: id},{ 'title':data.title}, {upsert: false}, function(err,data) {
         if (callback) {
@@ -75,7 +75,14 @@ exports.updateTitle=function(id,data,callback) {
         }
       });
 }
-//Actuañiza la facultad, si no existe no lo crea
+exports.updateOwner=function(id,data,callback) {
+	 Entry.update({_id: id},{ 'owner':data.owner}, {upsert: false}, function(err,data) {
+        if (callback) {
+          return callback(err,data);
+        }
+      });
+}
+//Actuañiza la entry, si no existe no lo crea
 exports.updateState=function(id,data,callback) {
 	 Entry.update({_id: id},{ 'state':data.state}, {upsert: false}, function(err,data) {
         if (callback) {
@@ -83,14 +90,19 @@ exports.updateState=function(id,data,callback) {
         }
       });
 }
-//Actuañiza la facultad, si no existe no lo crea
-exports.updateRecord=function(id,data,callback) {
-  Entry.findByIdAndUpdate(
-   id,
-   {$push: {record: data.record}},
-   {safe: true, upsert: false},
-   function(err, model) {
-       console.log(err);
-   }
-);
+//Actuañiza la entry, si no existe no lo crea
+exports.updateDate=function(id,data,callback) {
+	 Entry.update({_id: id},{ 'lastModification':data.date}, {upsert: false}, function(err,data) {
+        if (callback) {
+          return callback(err,data);
+        }
+      });
+}
+//Actuañiza la entry, si no existe no lo crea
+exports.updateContent=function(id,data,callback) {
+	 Entry.update({_id: id},{ 'content':data.content}, {upsert: false}, function(err,data) {
+        if (callback) {
+          return callback(err,data);
+        }
+      });
 }
