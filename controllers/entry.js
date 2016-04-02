@@ -1,7 +1,7 @@
 //Controlador de la aplicación
 //metodos para acceder a la base de datos
 var mongoose = require('mongoose')
-var Entry=require('../models/entrada');
+var Entry=require('../models/entry');
 var exports = module.exports
 
 //Todos los metodos tienen un callback
