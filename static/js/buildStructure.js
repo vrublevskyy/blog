@@ -18,7 +18,7 @@ function loadStructure() {
   ];
 
 
-  if (document.getElementById("documentID") && document.getElementById("documentID").text) {
+  if (document.getElementById("documentID") && document.getElementById("documentID").text && document.getElementById("documentID").text != 'Nuevo documento') {
     const documentID=document.getElementById("documentID").text
     $.ajax({
       url: 'https://www.paradisecity.me:8082/getEntry',
