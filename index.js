@@ -103,8 +103,9 @@ const register = function (request, reply) {
 
 };
 const buildStructure = function (request, reply) {
-  const id = request.params.documentId;
-  if (id) {
+
+  if (request.params.documentId) {
+    const id = request.params.documentId;
     reply.view('buildStructure', { user: request.auth.credentials.name,documentID:id });
   }
   else {

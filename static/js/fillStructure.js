@@ -133,6 +133,7 @@ function previous() {
 
     parseContent((data) => {
       var id=document.getElementById("documentID").text
+      console.log(id);
       $.ajax({
         url: 'https://www.paradisecity.me:8082/saveStructure/'+id,
         type: 'POST',
@@ -154,7 +155,7 @@ function next() {
 
 
   parseContent(() => {
-
+    var id=document.getElementById("documentID").text
     $.ajax({
       url: 'https://www.paradisecity.me:8082/saveStructure',
       type: 'POST',
