@@ -119,7 +119,7 @@ const saveStructure = function (request, reply) {
   if (request.params.documentId) {
     entryController.updateAll(request.params.documentId,JSON.parse(request.payload.structure),function (err,data) {
       if (!err) {
-        reply(data._id)
+        reply(request.params.documentId)
       }else {
         console.log(err)
         return reply.redirect('/login')
