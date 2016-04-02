@@ -116,8 +116,6 @@ const buildStructure = function (request, reply) {
 
 const saveStructure = function (request, reply) {
 
-  console.log(JSON.parse(request.payload.structure));
-
   if (request.params.documentId) {
     entryController.updateAll(request.params.documentId,JSON.parse(request.payload.structure),function (err,data) {
       if (!err) {
