@@ -16,7 +16,7 @@ function loadByID() {
     },
     success: function(reply) {
       var items = reply.content;
-
+      document.getElementById("title").value = reply.title;
       $('.grid-stack').each(function () {
         var grid = $(this).data('gridstack');
 
@@ -118,13 +118,13 @@ function parseContent(callback) {
   });
 
   var entry= {
-    id:document.getElementById("documentID").text,
     owner:document.getElementById("user").text,
     title: document.getElementById("title").value,
     state:'InProgress',
     date:Date.now(),
     content:res
   }
+
   callback(entry);
 }
 
@@ -132,8 +132,9 @@ function previous() {
 
 
     parseContent((data) => {
+      var id=document.getElementById("documentID").text
       $.ajax({
-        url: 'https://www.paradisecity.me:8082/saveStructure',
+        url: 'https://www.paradisecity.me:8082/saveStructure/'+id,
         type: 'POST',
         dataType: 'json',
         data:{
