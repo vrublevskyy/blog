@@ -125,7 +125,7 @@ function parseContent(callback) {
     content:res
   }
 
-  callback(entry);
+  callback(JSON.stringify(entry));
 }
 
 function previous() {
