@@ -1,22 +1,22 @@
 //Controlador de la aplicación
 //metodos para acceder a la base de datos
 var mongoose = require('mongoose')
-var Entry=require('../models/entry');
+var Entry=require('../models/entrada');
 var exports = module.exports
 
 //Todos los metodos tienen un callback
 
-//Añade nueva entry
+//Añade nueva entrada
 exports.addEntry=function(data,callback) {
 
-  var entry=new Entry({
+  var entrada=new Entry({
     'owner': data.owner,
     'title':data.title,
     'state':data.state,
     'lastModification':data.date,
     'content':data.content
   });
-  entry.save(function(err, data) {
+  entrada.save(function(err, data) {
     if (callback) {
       return callback(err,data);
     }
@@ -34,25 +34,25 @@ exports.getAllEntries = function(callback) {
 
 //Busca por nombre
 exports.findByOwner=function(filter,callback) {
-  Entry.findOne({ 'owner': filter }, '', function (err, entry) {
+  Entry.findOne({ 'owner': filter }, '', function (err, entrada) {
     if (callback) {
-      return callback(err,entry);
+      return callback(err,entrada);
     }
   })
 }
 exports.findByTitle=function(filter,callback) {
-  Entry.findOne({ 'title': filter }, '', function (err, entry) {
+  Entry.findOne({ 'title': filter }, '', function (err, entrada) {
     if (callback) {
-      return callback(err,entry);
+      return callback(err,entrada);
     }
   })
 }
 
 //Busca por ID
 exports.findById=function(filter,callback) {
-  Entry.findOne({ '_id': filter }, '', function (err, entry) {
+  Entry.findOne({ '_id': filter }, '', function (err, entrada) {
     if (callback) {
-      return callback(err,entry);
+      return callback(err,entrada);
     }
   })
 }
@@ -67,7 +67,7 @@ exports.remove=function(id,callback) {
   });
 }
 
-//Actuañiza la entry, si no existe no lo crea
+//Actualiza la entrada, si no existe no lo crea
 exports.updateTitle=function(id,data,callback) {
 	 Entry.update({_id: id},{ 'title':data.title}, {upsert: false}, function(err,data) {
         if (callback) {
@@ -82,7 +82,7 @@ exports.updateOwner=function(id,data,callback) {
         }
       });
 }
-//Actuañiza la entry, si no existe no lo crea
+//Actualiza la entrada, si no existe no lo crea
 exports.updateState=function(id,data,callback) {
 	 Entry.update({_id: id},{ 'state':data.state}, {upsert: false}, function(err,data) {
         if (callback) {
@@ -90,7 +90,7 @@ exports.updateState=function(id,data,callback) {
         }
       });
 }
-//Actuañiza la entry, si no existe no lo crea
+//Actualiza la entrada, si no existe no lo crea
 exports.updateDate=function(id,data,callback) {
 	 Entry.update({_id: id},{ 'lastModification':data.date}, {upsert: false}, function(err,data) {
         if (callback) {
@@ -98,9 +98,17 @@ exports.updateDate=function(id,data,callback) {
         }
       });
 }
-//Actuañiza la entry, si no existe no lo crea
+//Actualiza la entrada, si no existe no lo crea
 exports.updateContent=function(id,data,callback) {
 	 Entry.update({_id: id},{ 'content':data.content}, {upsert: false}, function(err,data) {
+        if (callback) {
+          return callback(err,data);
+        }
+      });
+}
+//Actualiza la entrada, si no existe lo crea
+exports.updateAll=function(id,data,callback) {
+	 Entry.update({_id: id},{ 'content':data.content,'lastModification':data.date,'state':data.state,'owner':data.owner,'title':data.title }, {upsert: true}, function(err,data) {
         if (callback) {
           return callback(err,data);
         }

@@ -103,21 +103,41 @@ const register = function (request, reply) {
 
 };
 const buildStructure = function (request, reply) {
+  const id = request.params.documentId;
+  if (id) {
+    reply.view('buildStructure', { user: request.auth.credentials.name,documentID:id });
+  }
+  else {
+    reply.view('buildStructure', { user: request.auth.credentials.name,documentID:"Nuevo documento" });
+  }
 
-  reply.view('buildStructure', { user: request.auth.credentials.name });
 };
 
 const saveStructure = function (request, reply) {
 
   console.log(JSON.parse(request.payload.structure));
-  entryController.addEntry(JSON.parse(request.payload.structure),function (err,data) {
-    if (!err) {
-      reply(data._id)
-    }else {
-      console.log(err)
-      return reply.redirect('/login')
-    }
-  })
+
+  if (request.params.documentId) {
+    entryController.updateAll(request.params.documentId,JSON.parse(request.payload.structure),function (err,data) {
+      if (!err) {
+        reply(data._id)
+      }else {
+        console.log(err)
+        return reply.redirect('/login')
+      }
+    })
+  }
+  else {
+    entryController.addEntry(JSON.parse(request.payload.structure),function (err,data) {
+      if (!err) {
+        reply(data._id)
+      }else {
+        console.log(err)
+        return reply.redirect('/login')
+      }
+    })
+  }
+
 
 };
 
@@ -243,8 +263,8 @@ server.connection({
     { method: ['GET', 'POST'], path: '/login', config: { handler: login, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } } },
     { method: 'GET', path: '/logout', config: { handler: logout } },
     { method: ['GET', 'POST'], path: '/register',  config: { handler: register, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } }},
-    { method: 'POST', path: '/saveStructure', config: { handler: saveStructure } },
-    { method: 'GET', path: '/buildStructure', config: { handler: buildStructure } },
+    { method: 'POST', path: '/saveStructure/{documentId?}', config: { handler: saveStructure } },
+    { method: 'GET', path: '/buildStructure/{documentId?}', config: { handler: buildStructure } },
     { method: ['GET', 'POST'], path: '/fillStructure/{documentId?}', config: { handler: fillStructure } },
     { method: ['POST'], path: '/getEntry', config: { handler: getEntry } }
   ]);
