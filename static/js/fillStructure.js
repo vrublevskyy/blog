@@ -95,7 +95,8 @@ function preview(data) {
   });
 }
 
-function next() {
+
+function parseContent(callback) {
   var res = _.map($('.grid-stack .grid-stack-item:visible'), function (el) {
   el = $(el);
   customtype=el.context.attributes.customtype.value;
@@ -116,7 +117,7 @@ function next() {
   };
   });
 
-  var entry={
+  var entry= {
     id:document.getElementById("documentID").text,
     owner:document.getElementById("user").text,
     title: document.getElementById("title").value,
@@ -124,7 +125,49 @@ function next() {
     date:Date.now(),
     content:res
   }
+  callback(entry);
+}
 
-  //preview(JSON.stringify(entry));
-  console.log(JSON.stringify(entry))
+function previous() {
+
+
+    parseContent((data) => {
+      $.ajax({
+        url: 'https://www.paradisecity.me:8082/saveStructure',
+        type: 'POST',
+        dataType: 'json',
+        data:{
+          'structure':data
+        },
+        success: function(reply) {
+          window.location.href = 'https://www.paradisecity.me:8082/buildStructure/'+reply;
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("Status: " + textStatus); console.log("Error: " + errorThrown);
+        }
+      });
+    });
+}
+
+function next() {
+
+
+  parseContent(() => {
+
+    $.ajax({
+      url: 'https://www.paradisecity.me:8082/saveStructure',
+      type: 'POST',
+      dataType: 'json',
+      data:{
+        'structure':data
+      },
+      success: function(reply) {
+        window.location.href = 'https://www.paradisecity.me:8082/manager';
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("Status: " + textStatus); console.log("Error: " + errorThrown);
+      }
+    });
+  })
+
 }

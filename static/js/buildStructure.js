@@ -1,4 +1,4 @@
-$(function () {
+function loadStructure() {
   var options = {
     width: 6,
     float: false,
@@ -17,45 +17,114 @@ $(function () {
 
   ];
 
-  $('.grid-stack').each(function () {
-    var grid = $(this).data('gridstack');
 
-    _.each(items, function (node) {
-      switch (node.data.type) {
-        case "title":
-          grid.addWidget($('<div customType="title"><div  class="grid-stack-item-content glyphicon glyphicon-text-width" ></div></div>'),
-          node.x, node.y, node.width, node.height);
-        break;
-        case "text":
-          grid.addWidget($('<div customType="text"><div class="grid-stack-item-content glyphicon glyphicon-pencil" ></div></div>'),
-          node.x, node.y, node.width, node.height);
-        break;
-        case "image":
-          grid.addWidget($('<div customType="image"><div class="grid-stack-item-content glyphicon glyphicon-picture" ></div></div>'),
-          node.x, node.y, node.width, node.height);
-        break;
-        case "comments":
-          grid.addWidget($('<div customType="comments"><div class="grid-stack-item-content glyphicon glyphicon-comment" ></div></div>'),
-          node.x, node.y, node.width, node.height);
-        break;
-        case "index":
-          grid.addWidget($('<div customType="index" ><div class="grid-stack-item-content glyphicon glyphicon-align-left" ></div></div>'),
-          node.x, node.y, node.width, node.height);
-        break;
+  if (document.getElementById("documentID") && document.getElementById("documentID").text) {
+    const documentID=document.getElementById("documentID").text
+    $.ajax({
+      url: 'https://www.paradisecity.me:8082/getEntry',
+      type: 'post',
+      dataType: 'json',
+      data:{
+        'documentID':documentID
+      },
+      success: function(reply) {
+        var items = reply.content;
+
+        $('.grid-stack').each(function () {
+          var grid = $(this).data('gridstack');
+
+          _.each(items, function (node) {
+            switch (node.data.type) {
+              case "title":
+                grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 20pt resize:vertical"></textarea>'),
+                node.x, node.y, node.width, node.height);
+              break;
+              case "text":
+                grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 13pt resize:vertical"></textarea>'),
+                node.x, node.y, node.width, node.height);
+              break;
+              case "image":
+                grid.addWidget($('<div customType='+node.data.type+' class="boxContent" ><div style="margin-left:30px"><label >Image URL: </label></br><input style="width:200px" type="text" name="imageURL"></input></div></div>'),
+                node.x, node.y, node.width, node.height);
+              break;
+              case "comments":
+                grid.addWidget($('<div customType='+node.data.type+' class="detailBox boxContent">  \
+                    <div class="titleBox">\
+                      <label>Comment Box</label>\
+                        <button type="button" class="close" aria-hidden="true">&times;</button>\
+                    </div>\
+                    <div class="commentBox">\
+                    </div>\
+                    <div class="actionBox">\
+                        <ul class="commentList">\
+                        </ul>\
+                        <form class="form-inline" role="form">\
+                            <div class="form-group">\
+                                <input class="form-control" type="text" placeholder="Your comments" />\
+                            </div>\
+                            <div class="form-group">\
+                                <button class="btn btn-default">Add</button>\
+                            </div>\
+                        </form>\
+                    </div>\
+                </div>'),
+                node.x, node.y, node.width, node.height);
+              break;
+              case "index":
+                grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent"></textarea>'),
+                node.x, node.y, node.width, node.height);
+              break;
+            }
+
+          }, this);
+        });
+
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("Status: " + textStatus); console.log("Error: " + errorThrown);
       }
+    });
+  }
 
-    }, this);
-  });
+  else {
+    $('.grid-stack').each(function () {
+      var grid = $(this).data('gridstack');
 
+      _.each(items, function (node) {
+        switch (node.data.type) {
+          case "title":
+            grid.addWidget($('<div customType="title"><div  class="grid-stack-item-content glyphicon glyphicon-text-width" ></div></div>'),
+            node.x, node.y, node.width, node.height);
+          break;
+          case "text":
+            grid.addWidget($('<div customType="text"><div class="grid-stack-item-content glyphicon glyphicon-pencil" ></div></div>'),
+            node.x, node.y, node.width, node.height);
+          break;
+          case "image":
+            grid.addWidget($('<div customType="image"><div class="grid-stack-item-content glyphicon glyphicon-picture" ></div></div>'),
+            node.x, node.y, node.width, node.height);
+          break;
+          case "comments":
+            grid.addWidget($('<div customType="comments"><div class="grid-stack-item-content glyphicon glyphicon-comment" ></div></div>'),
+            node.x, node.y, node.width, node.height);
+          break;
+          case "index":
+            grid.addWidget($('<div customType="index" ><div class="grid-stack-item-content glyphicon glyphicon-align-left" ></div></div>'),
+            node.x, node.y, node.width, node.height);
+          break;
+        }
 
-
+      }, this);
+    });
+  }
   $('.sidebar .grid-stack-item').draggable({
     revert: 'invalid',
     handle: '.grid-stack-item-content',
     scroll: false,
     appendTo: 'body'
   });
-});
+}
+
 
 $('#newTitle').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
   if (event.type != 'DOMNodeInserted') {
@@ -111,6 +180,10 @@ $('#newIndex').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
       appendTo: 'body'
     });
   }
+});
+
+$( document ).ready(function() {
+    loadStructure();
 });
 
 function sendStructure(data) {
