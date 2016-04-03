@@ -117,22 +117,23 @@ const buildStructure = function (request, reply) {
 const saveStructure = function (request, reply) {
 
   if (request.params.documentId) {
+
     entryController.updateAll(request.params.documentId,JSON.parse(request.payload.structure),function (err,data) {
       if (!err) {
-        reply(request.params.documentId)
+        reply({err:false,documentId:request.params.documentId})
       }else {
         console.log(err)
-        return reply.redirect('/login')
+        reply({err:true,documentId:data._id})
       }
     })
   }
   else {
     entryController.addEntry(JSON.parse(request.payload.structure),function (err,data) {
       if (!err) {
-        reply(data._id)
+        reply({err:false,documentId:data._id})
       }else {
         console.log(err)
-        return reply.redirect('/login')
+        reply({err:true,documentId:data._id})
       }
     })
   }

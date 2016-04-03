@@ -142,7 +142,13 @@ function previous() {
           'structure':data
         },
         success: function(reply) {
-          window.location.href = 'https://www.paradisecity.me:8082/buildStructure/'+reply;
+          if (!reply.error) {
+            documentId = reply.documentId
+            window.location.href = 'https://www.paradisecity.me:8082/fillStructure/'+documentId;
+          }
+          else {
+            window.location.href = 'https://www.paradisecity.me:8082/index/';
+          }
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           console.log("Status: " + textStatus); console.log("Error: " + errorThrown);
