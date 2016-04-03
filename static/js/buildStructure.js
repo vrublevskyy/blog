@@ -172,7 +172,7 @@ $( document ).ready(function() {
 function sendStructure(data) {
 
   var id=document.getElementById("documentID").text;
-  if (id && == 'Nuevo documento') {
+  if (id && id == 'Nuevo documento') {
     id = ""
   }
   $.ajax({
