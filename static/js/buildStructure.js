@@ -176,7 +176,7 @@ function sendStructure(data) {
     id = ""
   }
   $.ajax({
-    url: 'https://www.paradisecity.me:8082/saveStructure'+id,
+    url: 'https://www.paradisecity.me:8082/saveStructure/'+id,
     type: 'POST',
     dataType: 'json',
     data:{
