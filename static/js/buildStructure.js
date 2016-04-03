@@ -30,6 +30,8 @@ function loadStructure() {
       success: function(reply) {
         var items = reply.content;
 
+        document.getElementById("title").value = reply.title;
+
         $('.grid-stack').each(function () {
           var grid = $(this).data('gridstack');
 
@@ -169,8 +171,12 @@ $( document ).ready(function() {
 
 function sendStructure(data) {
 
+  var id=document.getElementById("documentID").text;
+  if (id && == 'Nuevo documento') {
+    id = ""
+  }
   $.ajax({
-    url: 'https://www.paradisecity.me:8082/saveStructure',
+    url: 'https://www.paradisecity.me:8082/saveStructure'+id,
     type: 'POST',
     dataType: 'json',
     data:{
