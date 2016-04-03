@@ -23,11 +23,11 @@ function loadByID() {
         _.each(items, function (node) {
           switch (node.data.type) {
             case "title":
-              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 20pt resize:vertical" readonly></textarea>'),
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 20pt resize:vertical" readonly>'+node.data.content+'</textarea>'),
               node.x, node.y, node.width, node.height);
             break;
             case "text":
-              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 13pt resize:vertical" readonly></textarea>'),
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 13pt resize:vertical" readonly>'+node.data.content+'</textarea>'),
               node.x, node.y, node.width, node.height);
             break;
             case "image":
