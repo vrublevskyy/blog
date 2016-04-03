@@ -147,27 +147,29 @@ const fillStructure = function (request, reply) {
     console.log(JSON.parse(request.payload.structure));
     entryController.addEntry(JSON.parse(request.payload.structure),function (err) {
       if (!err) {
-        reply.view('view', { user: request.auth.credentials.name, documentId: data._id });
+        reply({err:false,documentId:data._id})
+
       }else {
         console.log(err)
-        return reply.redirect('/login')
+        reply({err:true})
       }
 
     })
   }
   else if (request.method === 'get') {
-
-    if (request.params.documentId) {
-      reply.view('fillStructure', { user: request.auth.credentials.name, documentID: request.params.documentId });
-    else {
-      reply.view('index', { user: request.auth.credentials.name });
-    }
+    const id = request.params.documentId;
+    reply.view('fillStructure', { user: request.auth.credentials.name, documentID: id });
   }
 };
 
 const view = function (request, reply) {
 
-  reply.view('view', { user: request.auth.credentials.name,documentID:"Nuevo documento" });
+    if (request.params.documentId) {
+      reply.view('view', { user: request.auth.credentials.name, documentId: request.params.documentId });
+    else {
+      reply.view('index', { user: request.auth.credentials.name });
+    }
+
 
 };
 
@@ -206,7 +208,7 @@ server.connection({
     server.auth.strategy('session', 'cookie', true, {
       password: 'password-should-be-32-characters',
       cookie: 'sid-example',
-      redirectTo: '/login',
+      redirectTo: '/',
       isSecure: true,
       validateFunc: function (request, session, callback) {
 
