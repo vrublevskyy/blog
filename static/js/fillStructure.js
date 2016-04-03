@@ -157,20 +157,20 @@ function previous() {
     });
 }
 
-function next() {
+function save() {
 
 
   parseContent(() => {
     var id=document.getElementById("documentID").text
     $.ajax({
-      url: 'https://www.paradisecity.me:8082/saveStructure',
+      url: 'https://www.paradisecity.me:8082/saveStructure/'+id,
       type: 'POST',
       dataType: 'json',
       data:{
         'structure':data
       },
       success: function(reply) {
-        window.location.href = 'https://www.paradisecity.me:8082/manager';
+        window.location.href = 'https://www.paradisecity.me:8082/view/'+id;
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         console.log("Status: " + textStatus); console.log("Error: " + errorThrown);

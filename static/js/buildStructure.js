@@ -202,6 +202,7 @@ function next() {
   el = $(el);
   customtype=el.context.attributes.customtype.value;
   var node = el.data('_gridstack_node');
+  console.log(node);
   return {
       id: el.attr('data-custom-id'),
       x: node.x,
@@ -221,6 +222,7 @@ function next() {
     date:Date.now(),
     content:res
   }
+
 
   sendStructure(JSON.stringify(entry));
   console.log(JSON.stringify(entry))

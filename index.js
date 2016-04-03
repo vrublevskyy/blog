@@ -156,9 +156,19 @@ const fillStructure = function (request, reply) {
     })
   }
   else if (request.method === 'get') {
-    const id = request.params.documentId;
-    reply.view('fillStructure', { user: request.auth.credentials.name, documentID: id });
+
+    if (request.params.documentId) {
+      reply.view('fillStructure', { user: request.auth.credentials.name, documentID: request.params.documentId });
+    else {
+      reply.view('index', { user: request.auth.credentials.name });
+    }
   }
+};
+
+const view = function (request, reply) {
+
+  reply.view('view', { user: request.auth.credentials.name,documentID:"Nuevo documento" });
+
 };
 
 const getEntry = function (request, reply) {
@@ -196,7 +206,7 @@ server.connection({
     server.auth.strategy('session', 'cookie', true, {
       password: 'password-should-be-32-characters',
       cookie: 'sid-example',
-      redirectTo: '/',
+      redirectTo: '/login',
       isSecure: true,
       validateFunc: function (request, session, callback) {
 
@@ -265,6 +275,7 @@ server.connection({
     { method: ['GET', 'POST'], path: '/register',  config: { handler: register, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } }},
     { method: 'POST', path: '/saveStructure/{documentId?}', config: { handler: saveStructure } },
     { method: 'GET', path: '/buildStructure/{documentId?}', config: { handler: buildStructure } },
+    { method: 'GET', path: '/view/{documentId?}', config: { handler: view } },
     { method: ['GET', 'POST'], path: '/fillStructure/{documentId?}', config: { handler: fillStructure } },
     { method: ['POST'], path: '/getEntry', config: { handler: getEntry } }
   ]);
