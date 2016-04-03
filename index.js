@@ -165,7 +165,7 @@ const fillStructure = function (request, reply) {
 const view = function (request, reply) {
 
     if (request.params.documentId) {
-      reply.view('view', { user: request.auth.credentials.name, documentId: request.params.documentId });
+      reply.view('view', { user: request.auth.credentials.name, documentID: request.params.documentId });
     }
     else {
       reply.view('index', { user: request.auth.credentials.name });

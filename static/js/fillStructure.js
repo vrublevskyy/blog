@@ -77,24 +77,6 @@ $( document ).ready(function() {
     loadByID();
 });
 
-function preview(data) {
-
-  $.ajax({
-    url: 'https://www.paradisecity.me:8082/saveStructure',
-    type: 'POST',
-    dataType: 'json',
-    data:{
-      'structure':data
-    },
-    success: function(reply) {
-      window.location.href = 'https://www.paradisecity.me:8082/viewEntry/'+reply.documentId;
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
-      console.log("Status: " + textStatus); console.log("Error: " + errorThrown);
-    }
-  });
-}
-
 
 function parseContent(callback) {
   var res = _.map($('.grid-stack .grid-stack-item:visible'), function (el) {
