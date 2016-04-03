@@ -144,7 +144,7 @@ function previous() {
         success: function(reply) {
           if (!reply.error) {
             documentId = reply.documentId
-            window.location.href = 'https://www.paradisecity.me:8082/fillStructure/'+documentId;
+            window.location.href = 'https://www.paradisecity.me:8082/buildStructure/'+documentId;
           }
           else {
             window.location.href = 'https://www.paradisecity.me:8082/index/';
