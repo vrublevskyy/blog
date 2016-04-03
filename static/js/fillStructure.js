@@ -160,7 +160,7 @@ function previous() {
 function save() {
 
 
-  parseContent(() => {
+  parseContent((data) => {
     var id=document.getElementById("documentID").text
     $.ajax({
       url: 'https://www.paradisecity.me:8082/saveStructure/'+id,
@@ -170,7 +170,14 @@ function save() {
         'structure':data
       },
       success: function(reply) {
-        window.location.href = 'https://www.paradisecity.me:8082/view/'+id;
+        if (!reply.error) {
+          documentId = reply.documentId
+          window.location.href = 'https://www.paradisecity.me:8082/view/'+documentId;
+        }
+        else {
+          window.location.href = 'https://www.paradisecity.me:8082/index/';
+        }
+
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         console.log("Status: " + textStatus); console.log("Error: " + errorThrown);
