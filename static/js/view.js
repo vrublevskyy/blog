@@ -58,7 +58,7 @@ function loadByID() {
               node.x, node.y, node.width, node.height);
             break;
             case "index":
-              grid.addWidget($('<div>'+node.data.content+'</div>'),
+              grid.addWidget($('<iframe><body>'+node.data.content+'</body></iframe>'),
               node.x, node.y, node.width, node.height);
             break;
           }

@@ -23,7 +23,7 @@ function loadByID() {
         _.each(items, function (node) {
           switch (node.data.type) {
             case "title":
-              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 20pt resize:vertical"></textarea>'),
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 22pt resize:vertical"></textarea>'),
               node.x, node.y, node.width, node.height);
             break;
             case "text":
@@ -31,7 +31,7 @@ function loadByID() {
               node.x, node.y, node.width, node.height);
             break;
             case "image":
-              grid.addWidget($('<div customType='+node.data.type+' class="boxContent" ><div style="margin-left:30px"><label >Image URL: </label></br><input style="width:200px" type="text" name="imageURL"></input></div></div>'),
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 13pt resize:vertical" placeholder="Insert image url"></textarea>'),
               node.x, node.y, node.width, node.height);
             break;
             case "comments":
