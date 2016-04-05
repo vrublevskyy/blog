@@ -1,12 +1,12 @@
 #grid1 {
-  background: lightgoldenrodyellow;
+  background: #FFFFFF;
 
 }
 
 .grid-stack-item-content {
-  color: #2c3e50;
+  color: #FFFFFF;
   text-align: center;
-  background-color: #18bc9c;
+  background-color: #FFFFFF;
 }
 
 .grid-stack-item-removing {

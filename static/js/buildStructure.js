@@ -1,3 +1,35 @@
+function loadGrid(items) {
+  $('.grid-stack').each(function () {
+    var grid = $(this).data('gridstack');
+
+    _.each(items, function (node) {
+      switch (node.data.type) {
+        case "title":
+          grid.addWidget($('<div customType="title" style="margin:5px"><div  class="grid-stack-item-content glyphicon glyphicon-text-width" ></div></div>'),
+          node.x, node.y, node.width, node.height);
+        break;
+        case "text":
+          grid.addWidget($('<div customType="text" style="margin:5px"><div class="grid-stack-item-content glyphicon glyphicon-pencil" ></div></div>'),
+          node.x, node.y, node.width, node.height);
+        break;
+        case "image":
+          grid.addWidget($('<div customType="image" style="margin:5px"><div class="grid-stack-item-content glyphicon glyphicon-picture" ></div></div>'),
+          node.x, node.y, node.width, node.height);
+        break;
+        case "comments":
+          grid.addWidget($('<div customType="comments" style="margin:5px"><div class="grid-stack-item-content glyphicon glyphicon-comment" ></div></div>'),
+          node.x, node.y, node.width, node.height);
+        break;
+        case "index":
+          grid.addWidget($('<div customType="index" style="margin:5px"><div class="grid-stack-item-content glyphicon glyphicon-align-left" ></div></div>'),
+          node.x, node.y, node.width, node.height);
+        break;
+      }
+
+    }, this);
+  });
+}
+
 function loadStructure() {
   var options = {
     width: 6,
@@ -29,76 +61,18 @@ function loadStructure() {
       },
       success: function(reply) {
         var items = reply.content;
-
         document.getElementById("title").value = reply.title;
-
-        $('.grid-stack').each(function () {
-          var grid = $(this).data('gridstack');
-
-          _.each(items, function (node) {
-            switch (node.data.type) {
-              case "title":
-                grid.addWidget($('<div customType="title"><div  class="grid-stack-item-content glyphicon glyphicon-text-width" ></div></div>'),
-                node.x, node.y, node.width, node.height);
-              break;
-              case "text":
-                grid.addWidget($('<div customType="text"><div class="grid-stack-item-content glyphicon glyphicon-pencil" ></div></div>'),
-                node.x, node.y, node.width, node.height);
-              break;
-              case "image":
-                grid.addWidget($('<div customType="image"><div class="grid-stack-item-content glyphicon glyphicon-picture" ></div></div>'),
-                node.x, node.y, node.width, node.height);
-              break;
-              case "comments":
-                grid.addWidget($('<div customType="comments"><div class="grid-stack-item-content glyphicon glyphicon-comment" ></div></div>'),
-                node.x, node.y, node.width, node.height);
-              break;
-              case "index":
-                grid.addWidget($('<div customType="index" ><div class="grid-stack-item-content glyphicon glyphicon-align-left" ></div></div>'),
-                node.x, node.y, node.width, node.height);
-              break;
-            }
-
-          }, this);
-        });
-
+        loadGrid(items);
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
+        loadGrid(items);
         console.log("Status: " + textStatus); console.log("Error: " + errorThrown);
       }
     });
   }
 
   else {
-    $('.grid-stack').each(function () {
-      var grid = $(this).data('gridstack');
-
-      _.each(items, function (node) {
-        switch (node.data.type) {
-          case "title":
-            grid.addWidget($('<div customType="title"><div  class="grid-stack-item-content glyphicon glyphicon-text-width" ></div></div>'),
-            node.x, node.y, node.width, node.height);
-          break;
-          case "text":
-            grid.addWidget($('<div customType="text"><div class="grid-stack-item-content glyphicon glyphicon-pencil" ></div></div>'),
-            node.x, node.y, node.width, node.height);
-          break;
-          case "image":
-            grid.addWidget($('<div customType="image"><div class="grid-stack-item-content glyphicon glyphicon-picture" ></div></div>'),
-            node.x, node.y, node.width, node.height);
-          break;
-          case "comments":
-            grid.addWidget($('<div customType="comments"><div class="grid-stack-item-content glyphicon glyphicon-comment" ></div></div>'),
-            node.x, node.y, node.width, node.height);
-          break;
-          case "index":
-            grid.addWidget($('<div customType="index" ><div class="grid-stack-item-content glyphicon glyphicon-align-left" ></div></div>'),
-            node.x, node.y, node.width, node.height);
-          break;
-        }
-
-      }, this);
-    });
+    loadGrid(items);
   }
   $('.sidebar .grid-stack-item').draggable({
     revert: 'invalid',
