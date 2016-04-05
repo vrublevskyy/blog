@@ -23,22 +23,33 @@ function loadByID() {
         _.each(items, function (node) {
           switch (node.data.type) {
             case "title":
-              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 22pt resize:vertical"></textarea>'),
+              var content=""
+              if (node.data.content) {
+                content = node.data.content;
+              }
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 22pt resize:vertical">'+content+'</textarea>'),
               node.x, node.y, node.width, node.height);
             break;
             case "text":
-              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 13pt resize:vertical"></textarea>'),
+              var content=""
+              if (node.data.content) {
+                content = node.data.content;
+              }
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 13pt resize:vertical">'+content+'</textarea>'),
               node.x, node.y, node.width, node.height);
             break;
             case "image":
-              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 13pt resize:vertical" placeholder="Insert image url"></textarea>'),
+              var content=""
+              if (node.data.content) {
+                content = node.data.content;
+              }
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" style="font-size: 13pt resize:vertical" placeholder="Insert image url">'+content+'</textarea>'),
               node.x, node.y, node.width, node.height);
             break;
             case "comments":
               grid.addWidget($('<div customType='+node.data.type+' class="detailBox boxContent">  \
                   <div class="titleBox">\
-                    <label>Comment Box</label>\
-                      <button type="button" class="close" aria-hidden="true">&times;</button>\
+                    <label>Comments</label>\
                   </div>\
                   <div class="commentBox">\
                   </div>\
@@ -58,7 +69,11 @@ function loadByID() {
               node.x, node.y, node.width, node.height);
             break;
             case "index":
-              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent"></textarea>'),
+              var content=""
+              if (node.data.content) {
+                content = node.data.content;
+              }
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent">'+content+'</textarea>'),
               node.x, node.y, node.width, node.height);
             break;
           }

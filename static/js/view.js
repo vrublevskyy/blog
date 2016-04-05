@@ -23,19 +23,19 @@ function loadByID() {
         _.each(items, function (node) {
           switch (node.data.type) {
             case "title":
-              grid.addWidget($('<textarea customType='+node.data.type+'  style="font-size: 20pt; resize:vertical margin:20px" readonly>'+node.data.content+'</textarea>'),
+              grid.addWidget($('<textarea customType='+node.data.type+'  style="font-size: 20pt; resize:vertical margin:10px margin-top:50px" readonly>'+node.data.content+'</textarea>'),
               node.x, node.y, node.width, node.height);
             break;
             case "text":
-              grid.addWidget($('<textarea customType='+node.data.type+'  style="font-size: 13pt; resize:vertical margin:20px" readonly>'+node.data.content+'</textarea>'),
+              grid.addWidget($('<textarea customType='+node.data.type+'  style="font-size: 13pt; resize:vertical margin:10px margin-top:50px" readonly>'+node.data.content+'</textarea>'),
               node.x, node.y, node.width, node.height);
             break;
             case "image":
-              grid.addWidget($('<img style="margin:20px" src=\"'+node.data.content+'\"></img>'),
+              grid.addWidget($('<img style="margin:10px margin-top:50px" src=\"'+node.data.content+'\"></img>'),
               node.x, node.y, node.width, node.height);
             break;
             case "comments":
-              grid.addWidget($('<div customType='+node.data.type+' class="detailBox">  \
+              grid.addWidget($('<div style="margin-top:200px" customType='+node.data.type+' class="detailBox">  \
                   <div class="titleBox">\
                     <label>Comment Box</label>\
                       <button type="button" class="close" aria-hidden="true">&times;</button>\
