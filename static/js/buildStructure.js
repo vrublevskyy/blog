@@ -1,8 +1,15 @@
+var filledData = {};
+
 function loadGrid(items) {
   $('.grid-stack').each(function () {
     var grid = $(this).data('gridstack');
 
     _.each(items, function (node) {
+
+      if (node.data.content) {
+        var id = JSON.stringify(node.x)+ JSON.stringify(node.y)+ JSON.stringify(node.width)+ JSON.stringify(node.height);
+        filledData[id]=node.data.content;
+      }
       switch (node.data.type) {
         case "title":
           grid.addWidget($('<div customType="title" style="margin:5px"><div  class="grid-stack-item-content glyphicon glyphicon-text-width" ></div></div>'),
@@ -177,6 +184,12 @@ function next() {
   customtype=el.context.attributes.customtype.value;
   var node = el.data('_gridstack_node');
   console.log(node);
+  var id = JSON.stringify(node.x)+ JSON.stringify(node.y)+ JSON.stringify(node.width)+ JSON.stringify(node.height);
+  var content=filledData[id];
+
+  if (!content) {
+    content = ""
+  }
   return {
       id: el.attr('data-custom-id'),
       x: node.x,
@@ -184,7 +197,8 @@ function next() {
       width: node.width,
       height: node.height,
       data:{
-        type:customtype
+        type:customtype,
+        content:content
       }
   };
   });
