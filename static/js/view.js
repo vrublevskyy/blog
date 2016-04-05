@@ -58,9 +58,9 @@ function loadByID() {
               node.x, node.y, node.width, node.height);
             break;
             case "index":
-              grid.addWidget($('<iframe id="ytplayer" type="text/html" width="100%" height="100%" style="overflow: hidden; height: 100%;width: 100%; position: absolute;"  \
-  src="http://www.youtube.com/embed/'+node.data.content+'?autoplay=0" \
-  frameborder="0"/>'),
+              grid.addWidget($('<div style="height:inherit; width:inherit; margin:20px"><iframe  id="player" type="text/html" width="640" height="390" \
+                src="http://www.youtube.com/embed/'+node.data.content+'?enablejsapi=1&origin=http://example.com"   \
+                frameborder="0"></iframe></div>'),
               node.x, node.y, node.width, node.height);
             break;
           }
