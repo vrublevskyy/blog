@@ -59,7 +59,7 @@ function loadByID() {
             break;
             case "index":
               grid.addWidget($('<div style="height:inherit; width:inherit; margin:20px"><iframe  id="player" type="text/html" width="640" height="390" \
-                src="http://www.youtube.com/embed/'+node.data.content+'?enablejsapi=1&origin=http://example.com"   \
+                src="https://www.youtube.com/embed/'+node.data.content+'?enablejsapi=1&origin=http://example.com"   \
                 frameborder="0"></iframe></div>'),
               node.x, node.y, node.width, node.height);
             break;
