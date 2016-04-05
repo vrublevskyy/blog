@@ -58,7 +58,9 @@ function loadByID() {
               node.x, node.y, node.width, node.height);
             break;
             case "index":
-              grid.addWidget($('<iframe><body>'+node.data.content+'</body></iframe>'),
+              grid.addWidget($('<iframe id="ytplayer" type="text/html" width="100%" height="100%" style="overflow: hidden; height: 100%;width: 100%; position: absolute;"  \
+  src="http://www.youtube.com/embed/'+node.data.content+'?autoplay=0" \
+  frameborder="0"/>'),
               node.x, node.y, node.width, node.height);
             break;
           }
