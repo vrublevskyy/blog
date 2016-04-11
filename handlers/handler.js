@@ -1,5 +1,8 @@
-var userController =require('./controllers/user.js');
-var entryController =require('./controllers/entry.js');
+
+'use strict'
+
+var userController =require('../controllers/user.js');
+var entryController =require('../controllers/entry.js');
 
 const home = function (request, reply) {
 
@@ -175,4 +178,4 @@ module.exports.saveStructure= saveStructure;
 module.exports.editEntry= editEntry;
 module.exports.view= view;
 module.exports.getEntry= getEntry;
-module.exports.addComment= addComment;
+module.exports.addComment=addComment;
