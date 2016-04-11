@@ -21,14 +21,7 @@ let uuid = 1;       // Use seq instead of proper unique identifiers for demo onl
 
 
 const home = function (request, reply) {
-  /*
-  reply.file('<!DOCTYPE html><html><head><title>Login page</title></head><body><h3>Welcome ' +
-  request.auth.credentials.name +
-  '!</h3><br/><form method="get" action="/logout">' +
-  '<input type="submit" value="Logout">' +
-  '</form></body></html>');
 
-  */
   reply.view('index', { user: request.auth.credentials.name });
 };
 
@@ -141,7 +134,7 @@ const saveStructure = function (request, reply) {
 
 };
 
-const fillStructure = function (request, reply) {
+const editEntry = function (request, reply) {
 
   if (request.method === 'post' ) {
     console.log(JSON.parse(request.payload.structure));
@@ -158,7 +151,7 @@ const fillStructure = function (request, reply) {
   }
   else if (request.method === 'get') {
     const id = request.params.documentId;
-    reply.view('fillStructure', { user: request.auth.credentials.name, documentID: id });
+    reply.view('editEntry', { user: request.auth.credentials.name, documentID: id });
   }
 };
 
@@ -209,7 +202,7 @@ server.connection({
     server.auth.strategy('session', 'cookie', true, {
       password: 'password-should-be-32-characters',
       cookie: 'sid-example',
-      redirectTo: '/',
+      redirectTo: '/login',
       isSecure: true,
       validateFunc: function (request, session, callback) {
 
@@ -279,8 +272,9 @@ server.connection({
     { method: 'POST', path: '/saveStructure/{documentId?}', config: { handler: saveStructure } },
     { method: 'GET', path: '/buildStructure/{documentId?}', config: { handler: buildStructure } },
     { method: 'GET', path: '/view/{documentId?}', config: { handler: view } },
-    { method: ['GET', 'POST'], path: '/fillStructure/{documentId?}', config: { handler: fillStructure } },
-    { method: ['POST'], path: '/getEntry', config: { handler: getEntry } }
+    { method: ['GET', 'POST'], path: '/editEntry/{documentId?}', config: { handler: editEntry } },
+    { method: ['POST'], path: '/getEntry', config: { handler: getEntry } },
+    { method: ['POST'], path: '/addComment', config: { handler: addComment } },
   ]);
 
   server.start(() => {
