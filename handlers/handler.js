@@ -1,6 +1,7 @@
+'use strict'
 
-var userController =require('./controllers/user.js');
-var entryController =require('./controllers/entry.js');
+var userController =require('../controllers/user.js');
+var entryController =require('../controllers/entry.js');
 
 const home = function (request, reply) {
 
@@ -163,6 +164,10 @@ const getEntry = function (request, reply) {
   })
 };
 
+const addComment = function (request, reply) {
+
+}
+
 module.exports.home= home;
 module.exports.login= login;
 module.exports.logout= logout;
@@ -172,3 +177,5 @@ module.exports.saveStructure= saveStructure;
 module.exports.editEntry= editEntry;
 module.exports.view= view;
 module.exports.getEntry= getEntry;
+module.exports.addComment=addComment;
+

@@ -1,4 +1,4 @@
-
+'use strict'
 const staticRoutes = function (server) {
 
   server.route({
