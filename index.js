@@ -16,7 +16,7 @@ const handler = require('./handlers/handler.js')
 
 const Hapi = require('hapi');
 const FS = require('fs');
-let uuid = 1; 
+let uuid = 1;
 
 
 
@@ -74,12 +74,62 @@ server.connection({
 
 
   });
+  const login = function (request, reply) {
 
+    if (request.auth.isAuthenticated) {
+
+      return reply.redirect('/');
+    }
+
+    let message = '';
+    let account = null;
+
+    if (request.method === 'post') {
+
+      if (!request.payload.user || !request.payload.password) {
+        message = 'Missing username or password';
+      }
+      else {
+        userController.findByUser(request.payload.user,function (err,user) {
+          if (!err) {
+            account=user;
+
+            if (!account || account.password !== request.payload.password) {
+              message = 'Invalid username or password';
+            }
+            else{
+              const sid = String(++uuid);
+              request.server.app.cache.set(sid, { account: account }, 0, (err) => {
+
+                if (err) {
+                  reply(err);
+                }
+
+                request.cookieAuth.set({ sid: sid });
+                return reply.redirect('/');
+              });
+            }
+          }
+          else {
+            message = 'Invalid username or password';
+          }
+        });
+
+      }
+    }
+
+    if (request.method === 'get' || message) {
+
+      return reply.file('/root/pec2/server/templates/login.html')
+    }
+
+
+  };
   const routes = new require('./routes/staticRoutes.js').staticRoutes(server)
 
   server.route([
     { method: 'GET', path: '/', config: { handler: handler.home } },
-    { method: ['GET', 'POST'], path: '/login', config: { handler: handler.login, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } } },
+    { method: ['GET', 'POST'], path: '/login', config: { handler: login, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } } },
     { method: 'GET', path: '/logout', config: { handler: handler.logout } },
     { method: ['GET', 'POST'], path: '/register',  config: { handler: handler.register, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } }},
     { method: 'POST', path: '/saveStructure/{documentId?}', config: { handler: handler.saveStructure } },
@@ -87,7 +137,7 @@ server.connection({
     { method: 'GET', path: '/view/{documentId?}', config: { handler: handler.view } },
     { method: ['GET', 'POST'], path: '/editEntry/{documentId?}', config: { handler: handler.editEntry } },
     { method: ['POST'], path: '/getEntry', config: { handler: handler.getEntry } },
-    { method: ['POST'], path: '/addComment', config: { handler: handler.addComment } },
+    { method: ['POST'], path: '/addComment', config: { handler: handler.addComment } }
   ]);
 
   server.start(() => {

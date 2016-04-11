@@ -9,57 +9,7 @@ const home = function (request, reply) {
   reply.view('index', { user: request.auth.credentials.name });
 };
 
-const login = function (request, reply) {
 
-  if (request.auth.isAuthenticated) {
-
-    return reply.redirect('/');
-  }
-
-  let message = '';
-  let account = null;
-
-  if (request.method === 'post') {
-
-    if (!request.payload.user || !request.payload.password) {
-      message = 'Missing username or password';
-    }
-    else {
-      userController.findByUser(request.payload.user,function (err,user) {
-        if (!err) {
-          account=user;
-
-          if (!account || account.password !== request.payload.password) {
-            message = 'Invalid username or password';
-          }
-          else{
-            const sid = String(++uuid);
-            request.server.app.cache.set(sid, { account: account }, 0, (err) => {
-
-              if (err) {
-                reply(err);
-              }
-
-              request.cookieAuth.set({ sid: sid });
-              return reply.redirect('/');
-            });
-          }
-        }
-        else {
-          message = 'Invalid username or password';
-        }
-      });
-
-    }
-  }
-
-  if (request.method === 'get' || message) {
-
-    return reply.file('/root/pec2/server/templates/login.html')
-  }
-
-
-};
 
 const logout = function (request, reply) {
 
