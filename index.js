@@ -140,7 +140,7 @@ server.connection({
     { method: ['POST'], path: '/addComment', config: { handler: handler.addComment } },
     { method: ['GET'], path: '/getAllentries', config: { handler: handler.getAllentries } },
     { method: ['GET'], path: '/manager', config: { handler: handler.manager } },
-    { method: ['GET'], path: '/loadMyentrys', config: { handler: handler.loadMyentrys } },
+    { method: ['GET'], path: '/loadMyEntries', config: { handler: handler.loadMyEntries } },
     { method: ['POST'], path: '/publish/{documentId?}', config: { handler: handler.publish } },
     { method: ['POST'], path: '/deleteDoc/{documentId?}', config: { handler: handler.deleteDoc } }
   ]);

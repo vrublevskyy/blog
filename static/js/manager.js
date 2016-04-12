@@ -1,7 +1,7 @@
 function loadMyEntries() {
 
   $.ajax({
-    url: 'https://www.paradisecity.me:8082/loadMyentrys',
+    url: 'https://www.paradisecity.me:8082/loadMyEntries',
     type: 'GET',
     dataType: 'json',
     success: function(reply) {

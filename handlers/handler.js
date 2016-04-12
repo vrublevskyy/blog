@@ -152,7 +152,7 @@ const manager = function (request, reply) {
   reply.view('manager', { user: request.auth.credentials.name });
 };
 
-const loadMyentrys = function (request, reply) {
+const loadMyEntries = function (request, reply) {
   var usersDocs=[];
   entryController.getAllentries(function (err,data) {
     if (!err) {
@@ -221,7 +221,7 @@ module.exports.view= view;
 module.exports.getEntry= getEntry;
 module.exports.addComment=addComment;
 module.exports.getAllentries=getAllentries;
-module.exports.loadMyentrys=loadMyentrys;
+module.exports.loadMyEntries=loadMyEntries;
 module.exports.manager=manager;
 module.exports.publish=publish;
 module.exports.deleteDoc=deleteDoc;

@@ -58,7 +58,7 @@ function loadPublished() {
 
           console.log();
 
-            $( "#entrysList" ).append("<div class=\"row\">   \
+            $( "#EntriesList" ).append("<div class=\"row\">   \
               <br>  \
               <div class=\"col-md-2 col-sm-3 text-center\">  \
                 <a class=\"story-img\" href=\"#\"><img src=\""+image+"\" style=\"width:100px;height:100px\" class=\"img-circle\"></a>  \
