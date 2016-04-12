@@ -71,23 +71,32 @@ const saveStructure = function (request, reply) {
 
 const editEntry = function (request, reply) {
 
-  if (request.method === 'post' ) {
-    console.log(JSON.parse(request.payload.structure));
-    entryController.addEntry(JSON.parse(request.payload.structure),function (err) {
-      if (!err) {
-        reply({err:false,documentId:data._id})
+  entryController.findById(request.payload.documentID,function (err,data) {
+    if (!err) {
+      if (request.auth.credentials.name === data.owner) {
+        if (request.method === 'post' ) {
+          console.log(JSON.parse(request.payload.structure));
+          entryController.addEntry(JSON.parse(request.payload.structure),function (err) {
+            if (!err) {
+              reply({err:false,documentId:data._id})
 
-      }else {
-        console.log(err)
-        reply({err:true})
+            }else {
+              console.log(err)
+              reply({err:true})
+            }
+
+          })
+        }
+        else if (request.method === 'get') {
+          const id = request.params.documentId;
+          reply.view('editEntry', { user: request.auth.credentials.name, documentID: id });
+        }
       }
-
-    })
-  }
-  else if (request.method === 'get') {
-    const id = request.params.documentId;
-    reply.view('editEntry', { user: request.auth.credentials.name, documentID: id });
-  }
+    }else {
+      console.log(err)
+      return reply(err)
+    }
+  })
 };
 
 const view = function (request, reply) {
@@ -114,16 +123,23 @@ const getEntry = function (request, reply) {
   })
 };
 
+
+//TODO
 const addComment = function (request, reply) {
 
 }
 
 
-const getAllEntries = function (request, reply) {
-
-  entryController.getAllEntries(function (err,data) {
+const getAllentrys = function (request, reply) {
+  var published = []
+  entryController.getAllentrys(function (err,data) {
     if (!err) {
-      reply(data);
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].state === 'Published') {
+          published.push(data)
+        }
+      }
+      reply(published);
     }else {
       console.log(err)
       reply(err)
@@ -131,6 +147,69 @@ const getAllEntries = function (request, reply) {
   })
 }
 
+const manager = function (request, reply) {
+
+  reply.view('manager', { user: request.auth.credentials.name });
+};
+
+const loadMyentrys = function (request, reply) {
+  var usersDocs=[];
+  entryController.getAllentrys(function (err,data) {
+    if (!err) {
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].owner === request.auth.credentials.name) {
+          usersDocs.push(data[i])
+        }
+      }
+      reply(usersDocs);
+    }else {
+      console.log(err)
+      reply(err)
+    }
+  })
+}
+
+const publish = function (request, reply) {
+
+  entryController.findById(request.payload.documentID,function (err,data) {
+    if (!err) {
+      if (request.auth.credentials.name === data.owner) {
+        entryController.publish(data._id,function (err,data) {
+          if (!err) {
+            reply("OK");
+          }else {
+            console.log(err)
+            return reply(err)
+          }
+        });
+      }
+    }else {
+      console.log(err)
+      return reply(err)
+    }
+  })
+
+}
+
+const deleteDoc = function (request, reply) {
+  entryController.findById(request.payload.documentID,function (err,data) {
+    if (!err) {
+      if (request.auth.credentials.name === data.owner) {
+        entryController.remove(data._id,function (err,data) {
+          if (!err) {
+            reply("OK");
+          }else {
+            console.log(err)
+            return reply(err)
+          }
+        });
+      }
+    }else {
+      console.log(err)
+      return reply(err)
+    }
+  })
+}
 
 module.exports.home= home;
 module.exports.logout= logout;
@@ -141,4 +220,8 @@ module.exports.editEntry= editEntry;
 module.exports.view= view;
 module.exports.getEntry= getEntry;
 module.exports.addComment=addComment;
-module.exports.getAllEntries=getAllEntries;
+module.exports.getAllentrys=getAllentrys;
+module.exports.loadMyentrys=loadMyentrys;
+module.exports.manager=manager;
+module.exports.publish=publish;
+module.exports.deleteDoc=deleteDoc;

@@ -24,10 +24,10 @@ exports.addEntry=function(data,callback) {
 };
 
 //Devuelve todos los datos
-exports.getAllEntries = function(callback) {
-  Entry.find(function(err, entries) {
+exports.getAllentrys = function(callback) {
+  Entry.find(function(err, entrys) {
     if (callback) {
-      return callback(err,entries);
+      return callback(err,entrys);
     }
   });
 };
@@ -83,8 +83,8 @@ exports.updateOwner=function(id,data,callback) {
       });
 }
 //Actualiza la entrada, si no existe no lo crea
-exports.updateState=function(id,data,callback) {
-	 Entry.update({_id: id},{ 'state':data.state}, {upsert: false}, function(err,data) {
+exports.publish=function(id,callback) {
+	 Entry.update({_id: id},{ 'state':"Published"}, {upsert: false}, function(err,data) {
         if (callback) {
           return callback(err,data);
         }
