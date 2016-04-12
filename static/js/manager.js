@@ -76,7 +76,7 @@ function loadMyEntries() {
                     <p>"+text.slice(0,80)+"</p>    \
                       <p class=\"lead\"><button  onclick=\"readMore(\'"+id+"\')\" class=\"btn btn-default\">Read More</button></p>   \
                       <p class=\"lead\"><button  onclick=\"edit(\'"+id+"\')\" class=\"btn btn-default\">Edit</button></p>   \
-                      <p class=\"lead\"><button  onclick=\"delete(\'"+id+"\')\" class=\"btn btn-default\">Delete</button></p>   \
+                      <p class=\"lead\"><button  onclick=\"deleteDoc(\'"+id+"\')\" class=\"btn btn-default\">Delete</button></p>   \
                        "+publish+" \
                       <p class=\"pull-right\"><span class=\"label label-default\">"+tags+"</span> \
                       <ul class=\"list-inline\"><li><a> "+date+"</a></li><li><a><i class=\"glyphicon glyphicon-comment\"></i> "+comments+" Comments</a></li><li><a><i class=\"glyphicon glyphicon-user\"></i>Author "+author+"</a></li></ul>   \
@@ -118,7 +118,7 @@ const publish = function (id) {
   });
 }
 
-const delete = function (id) {
+const deleteDoc = function (id) {
   $.ajax({
     url: 'https://www.paradisecity.me:8082/deleteDoc/'+id,
     type: 'POST',
