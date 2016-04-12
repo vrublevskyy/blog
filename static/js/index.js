@@ -16,7 +16,8 @@ function loadByID() {
           var author = reply[i].owner;
           var comments = null;
           if (reply[i].content) {
-            for (var j = 0; j < reply[i].content[j].length; j++) {
+            for (var j = 0; j < reply[i].content.length; j++) {
+              console.log(content[j].data);
               switch (reply[i].content[j].data.type) {
                 case 'text':
                     if (!text) {
@@ -34,7 +35,7 @@ function loadByID() {
                     }
                   break;
               case 'comments':
-                  if (!comments && reply[i].content[j].data.content.length) {
+                  if (!comments && reply[i].content[j].data.content  &&reply[i].content[j].data.content.length) {
                       comments = reply[i].content[j].data.content.length;
                   }
                 break;
@@ -55,7 +56,7 @@ function loadByID() {
             }
           }
 
-
+          console.log();
 
             $( "#entriesList" ).append("<div class=\"row\">   \
               <br>  \
@@ -66,7 +67,7 @@ function loadByID() {
                 <h3>"+title+"</h3>   \
                 <div class=\"row\">   \
                   <div class=\"col-xs-9\">   \
-                    <p></p>    \
+                    <p>"text.slice(0,80)"</p>    \
                       <p class=\"lead\"><button  onclick=\"readMore("+id+")\" class=\"btn btn-default\">Read More</button></p>   \
                       <p class=\"pull-right\"><span class=\"label label-default\">"+tags+"</span> \
                       <ul class=\"list-inline\"><li><a> "+date+"</a></li><li><a><i class=\"glyphicon glyphicon-comment\"></i> "+comments+" Comments</a></li><li><a><i class=\"glyphicon glyphicon-user\"></i>Author "+author+"</a></li></ul>   \
