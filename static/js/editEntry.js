@@ -68,7 +68,7 @@ function loadByID() {
               </div>'),
               node.x, node.y, node.width, node.height);
             break;
-            case "index":
+            case "video":
               var content=""
               if (node.data.content) {
                 content = node.data.content;

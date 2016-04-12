@@ -27,8 +27,8 @@ function loadGrid(items) {
           grid.addWidget($('<div customType="comments" style="margin:5px"><div class="grid-stack-item-content glyphicon glyphicon-comment" ></div></div>'),
           node.x, node.y, node.width, node.height);
         break;
-        case "index":
-          grid.addWidget($('<div customType="index" style="margin:5px"><div class="grid-stack-item-content glyphicon glyphicon-align-left" ></div></div>'),
+        case "video":
+          grid.addWidget($('<div customType="video" style="margin:5px"><div class="grid-stack-item-content glyphicon glyphicon-align-left" ></div></div>'),
           node.x, node.y, node.width, node.height);
         break;
       }
@@ -52,7 +52,7 @@ function loadStructure() {
     {x: 0, y: 2, width: 3, height: 4,data:{'type':"text"}},
     {x: 3, y: 3, width: 2, height: 4,data:{'type':"image"}},
     {x: 0, y: 6, width: 6, height: 5,data:{'type':"comments"}},
-    {x: 5, y: 1, width: 0, height: 5,data:{'type':"index"}}
+    {x: 5, y: 1, width: 0, height: 5,data:{'type':"video"}}
 
   ];
 
@@ -169,7 +169,7 @@ function sendStructure(data) {
         window.location.href = 'https://www.paradisecity.me:8082/editEntry/'+documentId;
       }
       else {
-        window.location.href = 'https://www.paradisecity.me:8082/index/';
+        window.location.href = 'https://www.paradisecity.me:8082/video/';
       }
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {

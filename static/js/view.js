@@ -16,7 +16,7 @@ function loadByID() {
     },
     success: function(reply) {
       var items = reply.content;
-      document.getElementById("title").value = reply.title;
+      document.getElementById("title").innerHTML  = reply.title;
       $('.grid-stack').each(function () {
         var grid = $(this).data('gridstack');
 
@@ -57,7 +57,7 @@ function loadByID() {
               </div>'),
               node.x, node.y, node.width, node.height);
             break;
-            case "index":
+            case "video":
               grid.addWidget($('<div style="height:inherit; width:inherit; margin:20px"><iframe  id="player" type="text/html" style="width:100%" width="640" height="390" \
                 src="https://www.youtube.com/embed/'+node.data.content+'?enablejsapi=1&origin=http://example.com"   \
                 frameborder="0"></iframe></div>'),
