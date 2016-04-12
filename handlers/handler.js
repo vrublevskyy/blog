@@ -130,9 +130,9 @@ const addComment = function (request, reply) {
 }
 
 
-const getAllentrys = function (request, reply) {
+const getAllentries = function (request, reply) {
   var published = []
-  entryController.getAllentrys(function (err,data) {
+  entryController.getAllentries(function (err,data) {
     if (!err) {
       for (var i = 0; i < data.length; i++) {
         if (data[i].state == 'Published') {
@@ -154,7 +154,7 @@ const manager = function (request, reply) {
 
 const loadMyentrys = function (request, reply) {
   var usersDocs=[];
-  entryController.getAllentrys(function (err,data) {
+  entryController.getAllentries(function (err,data) {
     if (!err) {
       for (var i = 0; i < data.length; i++) {
         if (data[i].owner === request.auth.credentials.name) {
@@ -220,7 +220,7 @@ module.exports.editEntry= editEntry;
 module.exports.view= view;
 module.exports.getEntry= getEntry;
 module.exports.addComment=addComment;
-module.exports.getAllentrys=getAllentrys;
+module.exports.getAllentries=getAllentries;
 module.exports.loadMyentrys=loadMyentrys;
 module.exports.manager=manager;
 module.exports.publish=publish;

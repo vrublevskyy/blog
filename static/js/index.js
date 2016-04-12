@@ -1,7 +1,7 @@
 function loadPublished() {
 
   $.ajax({
-    url: 'https://www.paradisecity.me:8082/getAllentrys',
+    url: 'https://www.paradisecity.me:8082/getAllentries',
     type: 'GET',
     dataType: 'json',
     success: function(reply) {

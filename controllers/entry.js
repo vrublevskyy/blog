@@ -24,7 +24,7 @@ exports.addEntry=function(data,callback) {
 };
 
 //Devuelve todos los datos
-exports.getAllentrys = function(callback) {
+exports.getAllentries = function(callback) {
   Entry.find(function(err, entrys) {
     if (callback) {
       return callback(err,entrys);

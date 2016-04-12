@@ -138,7 +138,7 @@ server.connection({
     { method: ['GET', 'POST'], path: '/editEntry/{documentId?}', config: { handler: handler.editEntry } },
     { method: ['POST'], path: '/getEntry', config: { handler: handler.getEntry } },
     { method: ['POST'], path: '/addComment', config: { handler: handler.addComment } },
-    { method: ['GET'], path: '/getAllentrys', config: { handler: handler.getAllentrys } },
+    { method: ['GET'], path: '/getAllentries', config: { handler: handler.getAllentries } },
     { method: ['GET'], path: '/manager', config: { handler: handler.manager } },
     { method: ['GET'], path: '/loadMyentrys', config: { handler: handler.loadMyentrys } },
     { method: ['POST'], path: '/publish/{documentId?}', config: { handler: handler.publish } },
