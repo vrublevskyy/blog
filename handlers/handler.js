@@ -136,7 +136,7 @@ const getAllentries = function (request, reply) {
     if (!err) {
       for (var i = 0; i < data.length; i++) {
         if (data[i].state == 'Published') {
-          published.push(data)
+          published.push(data[i])
         }
       }
       reply(published);
