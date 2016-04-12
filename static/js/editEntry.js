@@ -1,3 +1,6 @@
+//Igual que en buildStructure, se lee de la base de datos
+//Pero se modifica el html para poder editar
+
 function loadByID() {
   var options = {
     width: 6,
@@ -106,7 +109,7 @@ $( document ).ready(function() {
     loadByID();
 });
 
-
+//Guarda el contenido en la base de datos
 function parseContent(callback) {
   var res = _.map($('.grid-stack .grid-stack-item:visible'), function (el) {
   el = $(el);
@@ -146,7 +149,7 @@ function parseContent(callback) {
 
   callback(JSON.stringify(entry));
 }
-
+//Volver al punto anterior
 function previous() {
 
 
@@ -177,7 +180,6 @@ function previous() {
 }
 
 function save() {
-
 
   parseContent((data) => {
     var id=document.getElementById("documentID").text

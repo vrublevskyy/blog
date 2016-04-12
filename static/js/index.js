@@ -1,3 +1,5 @@
+
+//Carga todos los elemntos publicados y los muestra en la pagina principal
 function loadPublished() {
 
   $.ajax({
@@ -42,6 +44,7 @@ function loadPublished() {
 
               }
             }
+            //Si no  estan definidos los pone como string vacios
             if (!tags) {
                 tags = "";
             }
@@ -56,8 +59,7 @@ function loadPublished() {
             }
           }
 
-          console.log();
-
+          //Plantilla de lista de elemntos
             $( "#EntriesList" ).append("<div class=\"row\">   \
               <br>  \
               <div class=\"col-md-2 col-sm-3 text-center\">  \

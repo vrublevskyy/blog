@@ -1,3 +1,6 @@
+//Vista de una entrada del blog
+//Como en los dos pasos anteriores, se carga de la base de datos pero modifica el html
+
 function loadByID() {
   var options = {
     width: 6,

@@ -16,11 +16,10 @@ const handler = require('./handlers/handler.js')
 
 const Hapi = require('hapi');
 const FS = require('fs');
-let uuid = 1;
+let uuid = 1;//ides de usuarios
 
+//Controlador de usuarios de la base de datos
 var userController =require('./controllers/user.js');
-
-
 
 const server = new Hapi.Server();
 server.connection({
@@ -32,6 +31,7 @@ server.connection({
   } });
 
 
+  //registro de plugions y configuracion del servidor
   server.register([require('hapi-auth-cookie'),require('inert'),require('vision')], (err) => {
 
     if (err) {
@@ -63,6 +63,7 @@ server.connection({
       }
     });
 
+    //generador de vistas a partir de las plantillas
     server.views({
       engines: {
         html: require('handlebars')
@@ -74,6 +75,8 @@ server.connection({
 
 
   });
+
+  //Login esta fuera de handlers por la generacion de uuid
   const login = function (request, reply) {
 
     if (request.auth.isAuthenticated) {
@@ -98,7 +101,7 @@ server.connection({
               message = 'Invalid username or password';
             }
             else{
-              const sid = String(++uuid);
+              const sid = String(++uuid);  //se incrementa el contador, poco seguro
               request.server.app.cache.set(sid, { account: account }, 0, (err) => {
 
                 if (err) {
@@ -127,6 +130,7 @@ server.connection({
   };
   const routes = new require('./routes/staticRoutes.js').staticRoutes(server)
 
+  //Rutas para acceder a los servicios y la configuracion de seguridad
   server.route([
     { method: 'GET', path: '/', config: { handler: handler.home } },
     { method: ['GET', 'POST'], path: '/login', config: { handler: login, auth: { mode: 'try' }, plugins: { 'hapi-auth-cookie': { redirectTo: false } } } },

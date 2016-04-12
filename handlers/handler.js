@@ -1,6 +1,6 @@
 
 'use strict'
-
+//Controladores del servidor
 var userController =require('../controllers/user.js');
 var entryController =require('../controllers/entry.js');
 
@@ -10,13 +10,15 @@ const home = function (request, reply) {
 };
 
 
-
+//limpia cookies y redirige a login
 const logout = function (request, reply) {
 
   request.cookieAuth.clear();
   return reply.redirect('/login');
 };
 
+
+//añade nuevo usuario
 const register = function (request, reply) {
 
   userController.addUser(request.payload,function (err) {
@@ -30,6 +32,8 @@ const register = function (request, reply) {
 
 };
 
+
+//Plantilla de construccion del blog
 const buildStructure = function (request, reply) {
 
   if (request.params.documentId) {
@@ -42,6 +46,7 @@ const buildStructure = function (request, reply) {
 
 };
 
+//Guarda la estructura generada por los clientes
 const saveStructure = function (request, reply) {
 
   if (request.params.documentId) {
@@ -69,8 +74,9 @@ const saveStructure = function (request, reply) {
 
 };
 
-const editEntry = function (request, reply) {
 
+// Si es POST añade la estrucutra si GET devuelve la plantilla para rellenar datos
+const editEntry = function (request, reply) {
 
   if (request.method === 'post' ) {
     console.log(JSON.parse(request.payload.structure));
@@ -91,6 +97,7 @@ const editEntry = function (request, reply) {
   }
 };
 
+//Devuelve una entrada del blog para modo lectura
 const view = function (request, reply) {
 
   if (request.params.documentId) {
@@ -103,6 +110,7 @@ const view = function (request, reply) {
 
 };
 
+//Devuelve una entrada del blog especificada en el parametro
 const getEntry = function (request, reply) {
 
   entryController.findById(request.payload.documentID,function (err,data) {
@@ -116,7 +124,7 @@ const getEntry = function (request, reply) {
 };
 
 
-//TODO
+//TODO no implementado
 const addComment = function (request, reply) {
 
 }
@@ -139,6 +147,7 @@ const getAllentries = function (request, reply) {
   })
 }
 
+//Devuelve la plantilla de administracion TODO hacerla totalmente operativa
 const manager = function (request, reply) {
 
   reply.view('manager', { user: request.auth.credentials.name });
@@ -160,7 +169,7 @@ const loadMyEntries = function (request, reply) {
     }
   })
 }
-
+//Publica una entrada
 const publish = function (request, reply) {
 
   entryController.findById(request.payload.documentID,function (err,data) {
@@ -182,7 +191,7 @@ const publish = function (request, reply) {
   })
 
 }
-
+//Elimina un documento
 const deleteDoc = function (request, reply) {
   entryController.findById(request.payload.documentID,function (err,data) {
     if (!err) {

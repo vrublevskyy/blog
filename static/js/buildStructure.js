@@ -1,6 +1,20 @@
+//Se utiliza gridstack.js para generar los elementos.
+/*
+  Al principio tenemos una papelera para tirar los elementos, elementos que se pueden añadir
+  y el campo dende se define la estrucctura.
+  Se puede modificar el tamaño y la posicion.
+
+
+
+*/
+
 var filledData = {};
 
+
+//Carga el grid que se pasa como array de elementos
+//Por cada elemento, dependiendo de su tipo añade codigo distinto
 function loadGrid(items) {
+
   $('.grid-stack').each(function () {
     var grid = $(this).data('gridstack');
 
@@ -40,7 +54,8 @@ function loadGrid(items) {
     }, this);
   });
 }
-
+//Si el documento es nuevo crea el grid inicial a partir de un array predefinido
+// si ya existe, lo carga de la base de datos
 function loadStructure() {
   var options = {
     width: 6,
@@ -94,7 +109,7 @@ function loadStructure() {
   });
 }
 
-
+//Cuando se arrastra un nuevo elemento del sidebar hay que reemplazarlo con otro igual para poder seguir añadiendo elementos
 $('#newTitle').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
   if (event.type != 'DOMNodeInserted') {
     $('#newTitle').append('<div customType="title" style=\"position: relative;\" class="grid-stack-item ui-draggable"><div class=\"grid-stack-item-content ui-draggable-handle glyphicon glyphicon-text-width\"></div></div>');
@@ -166,6 +181,8 @@ $( document ).ready(function() {
     loadStructure();
 });
 
+
+//Envia el contenido al servidor
 function sendStructure(data) {
 
   var id=document.getElementById("documentID").text;
@@ -185,7 +202,7 @@ function sendStructure(data) {
         window.location.href = 'https://www.paradisecity.me:8082/editEntry/'+documentId;
       }
       else {
-        window.location.href = 'https://www.paradisecity.me:8082/video/';
+        window.location.href = 'https://www.paradisecity.me:8082/index';
       }
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -194,6 +211,7 @@ function sendStructure(data) {
   });
 }
 
+//Despue de crear la estructura se guardan los elementos y se pasa a la edicion
 function next() {
   var res = _.map($('.grid-stack .grid-stack-item:visible'), function (el) {
   el = $(el);

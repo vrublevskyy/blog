@@ -1,4 +1,6 @@
 'use strict'
+
+//Rutas a los elementos estaticos de la pagina js,css...
 const staticRoutes = function (server) {
 
   server.route({

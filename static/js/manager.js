@@ -1,3 +1,5 @@
+
+//TODO no recibe los elementos publicados por el autor
 function loadMyEntries() {
 
   $.ajax({
