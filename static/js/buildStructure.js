@@ -32,7 +32,7 @@ function loadGrid(items) {
           node.x, node.y, node.width, node.height);
         break;
         case "tag":
-          grid.addWidget($('<div customType="video" style="margin:5px"><div class="grid-stack-item-content glyphicon glyphicon-tags" ></div></div>'),
+          grid.addWidget($('<div customType="tag" style="margin:5px"><div class="grid-stack-item-content glyphicon glyphicon-tags" ></div></div>'),
           node.x, node.y, node.width, node.height);
         break;
       }
@@ -57,7 +57,7 @@ function loadStructure() {
     {x: 3, y: 3, width: 2, height: 4,data:{'type':"image"}},
     {x: 0, y: 6, width: 6, height: 5,data:{'type':"comments"}},
     {x: 5, y: 1, width: 0, height: 5,data:{'type':"video"}},
-    {x: 6, y: 1, width: 6, height: 2,data:{'type':"tag"}}
+    {x: 0, y: 9, width: 6, height: 2,data:{'type':"tag"}}
 
   ];
 
