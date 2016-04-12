@@ -71,32 +71,24 @@ const saveStructure = function (request, reply) {
 
 const editEntry = function (request, reply) {
 
-  entryController.findById(request.payload.documentID,function (err,data) {
-    if (!err) {
-      if (request.auth.credentials.name === data.owner) {
-        if (request.method === 'post' ) {
-          console.log(JSON.parse(request.payload.structure));
-          entryController.addEntry(JSON.parse(request.payload.structure),function (err) {
-            if (!err) {
-              reply({err:false,documentId:data._id})
 
-            }else {
-              console.log(err)
-              reply({err:true})
-            }
+  if (request.method === 'post' ) {
+    console.log(JSON.parse(request.payload.structure));
+    entryController.addEntry(JSON.parse(request.payload.structure),function (err) {
+      if (!err) {
+        reply({err:false,documentId:data._id})
 
-          })
-        }
-        else if (request.method === 'get') {
-          const id = request.params.documentId;
-          reply.view('editEntry', { user: request.auth.credentials.name, documentID: id });
-        }
+      }else {
+        console.log(err)
+        reply({err:true})
       }
-    }else {
-      console.log(err)
-      return reply(err)
-    }
-  })
+
+    })
+  }
+  else if (request.method === 'get') {
+    const id = request.params.documentId;
+    reply.view('editEntry', { user: request.auth.credentials.name, documentID: id });
+  }
 };
 
 const view = function (request, reply) {
