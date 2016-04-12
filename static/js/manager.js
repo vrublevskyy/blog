@@ -1,4 +1,4 @@
-function loadMyentrys() {
+function loadMyEntries() {
 
   $.ajax({
     url: 'https://www.paradisecity.me:8082/loadMyentrys',
