@@ -57,7 +57,7 @@ function loadStructure() {
     {x: 3, y: 3, width: 2, height: 4,data:{'type':"image"}},
     {x: 0, y: 6, width: 6, height: 5,data:{'type':"comments"}},
     {x: 5, y: 1, width: 0, height: 5,data:{'type':"video"}},
-    {x: 0, y: 9, width: 6, height: 2,data:{'type':"tag"}}
+    {x: 0, y: 9, width: 6, height: 1,data:{'type':"tag"}}
 
   ];
 

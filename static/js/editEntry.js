@@ -79,7 +79,13 @@ function loadByID() {
             case "tag":
               var content=""
               if (node.data.content) {
-                content = node.data.content;
+                if (typeof node.data.content === 'object') {
+                    content = JSON.stringify(node.data.content);
+                }
+                else {
+                  content = node.data.content;
+                }
+
               }
               grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" placeholder="Insert tags">'+content+'</textarea>'),
               node.x, node.y, node.width, node.height);
@@ -107,7 +113,15 @@ function parseContent(callback) {
   customtype=el.context.attributes.customtype.value;
   var value=el.context.value;
   var node = el.data('_gridstack_node');
-  console.log(el)
+  var tagArray = null;
+  if (customtype === 'tag') {
+    if (value) {
+      tagArray = value.split(',');
+    }
+  }
+  if (tagArray) {
+    value = tagArray;
+  }
   return {
       id: el.attr('data-custom-id'),
       x: node.x,

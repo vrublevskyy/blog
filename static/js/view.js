@@ -63,6 +63,10 @@ function loadByID() {
                 frameborder="0"></iframe></div>'),
               node.x, node.y, node.width, node.height);
             break;
+            case "tag":
+              grid.addWidget($('<textarea customType='+node.data.type+'  style="font-size: 13pt; resize:vertical margin:10px margin-top:50px" readonly>'+node.data.content+'</textarea>'),
+              node.x, node.y, node.width, node.height);
+            break;
           }
 
         }, this);
