@@ -17,25 +17,25 @@ function loadByID() {
           var comments = null;
           if (reply[i].content) {
             for (var j = 0; j < reply[i].content[j].length; j++) {
-              switch (reply[i].content[j].type) {
+              switch (reply[i].content[j].data.type) {
                 case 'text':
                     if (!text) {
-                        text = reply[i].content[j].content;
+                        text = reply[i].content[j].data.content;
                     }
                   break;
                 case 'image':
                     if (!image) {
-                        image = reply[i].content[j].content;
+                        image = reply[i].content[j].data.content;
                     }
                   break;
                 case 'tags':
                     if (!tags) {
-                        tags = reply[i].content[j].content;
+                        tags = reply[i].content[j].data.content;
                     }
                   break;
               case 'comments':
-                  if (!comments && reply[i].content[j].content.length) {
-                      comments = reply[i].content[j].content.length;
+                  if (!comments && reply[i].content[j].data.content.length) {
+                      comments = reply[i].content[j].data.content.length;
                   }
                 break;
 
@@ -49,6 +49,9 @@ function loadByID() {
             }
             if (!text) {
                 text = "";
+            }
+            if (!comments) {
+                comments = 0;
             }
           }
 
