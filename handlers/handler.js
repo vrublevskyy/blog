@@ -120,7 +120,6 @@ const addComment = function (request, reply) {
 }
 
 module.exports.home= home;
-module.exports.login= login;
 module.exports.logout= logout;
 module.exports.register= register;
 module.exports.buildStructure= buildStructure;

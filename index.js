@@ -18,7 +18,7 @@ const Hapi = require('hapi');
 const FS = require('fs');
 let uuid = 1;
 
-
+var userController =require('./controllers/user.js');
 
 
 
