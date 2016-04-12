@@ -6,7 +6,7 @@ function loadPublished() {
     dataType: 'json',
     success: function(reply) {
       for (var i = 0; i < reply.length; i++) {
-        if (typeof reply[i] === 'object' && reply[i].state === 'Published') {
+        if (typeof reply[i] === 'object') {
           var id = reply[i]._id;
           var text = null;
           var image = null;

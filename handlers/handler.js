@@ -135,7 +135,7 @@ const getAllentrys = function (request, reply) {
   entryController.getAllentrys(function (err,data) {
     if (!err) {
       for (var i = 0; i < data.length; i++) {
-        if (data[i].state === 'Published') {
+        if (data[i].state == 'Published') {
           published.push(data)
         }
       }
