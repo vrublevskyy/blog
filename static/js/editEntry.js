@@ -73,7 +73,15 @@ function loadByID() {
               if (node.data.content) {
                 content = node.data.content;
               }
-              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent">'+content+'</textarea>'),
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" placeholder="Insert VIDEO ID">'+content+'</textarea>'),
+              node.x, node.y, node.width, node.height);
+            break;
+            case "tag":
+              var content=""
+              if (node.data.content) {
+                content = node.data.content;
+              }
+              grid.addWidget($('<textarea customType='+node.data.type+' class="boxContent" placeholder="Insert tags">'+content+'</textarea>'),
               node.x, node.y, node.width, node.height);
             break;
           }

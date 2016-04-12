@@ -141,3 +141,4 @@ module.exports.editEntry= editEntry;
 module.exports.view= view;
 module.exports.getEntry= getEntry;
 module.exports.addComment=addComment;
+module.exports.getAllEntries=getAllEntries;

@@ -28,7 +28,11 @@ function loadGrid(items) {
           node.x, node.y, node.width, node.height);
         break;
         case "video":
-          grid.addWidget($('<div customType="video" style="margin:5px"><div class="grid-stack-item-content glyphicon glyphicon-align-left" ></div></div>'),
+          grid.addWidget($('<div customType="video" style="margin:5px"><div class="grid-stack-item-content glyphicon glyphicon-facetime-video" ></div></div>'),
+          node.x, node.y, node.width, node.height);
+        break;
+        case "tag":
+          grid.addWidget($('<div customType="video" style="margin:5px"><div class="grid-stack-item-content glyphicon glyphicon-tags" ></div></div>'),
           node.x, node.y, node.width, node.height);
         break;
       }
@@ -52,7 +56,8 @@ function loadStructure() {
     {x: 0, y: 2, width: 3, height: 4,data:{'type':"text"}},
     {x: 3, y: 3, width: 2, height: 4,data:{'type':"image"}},
     {x: 0, y: 6, width: 6, height: 5,data:{'type':"comments"}},
-    {x: 5, y: 1, width: 0, height: 5,data:{'type':"video"}}
+    {x: 5, y: 1, width: 0, height: 5,data:{'type':"video"}},
+    {x: 6, y: 1, width: 6, height: 2,data:{'type':"tag"}}
 
   ];
 
@@ -92,7 +97,7 @@ function loadStructure() {
 
 $('#newTitle').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
   if (event.type != 'DOMNodeInserted') {
-    $('#newTitle').append('<div style=\"position: relative;\" class="grid-stack-item ui-draggable"><div class=\"grid-stack-item-content ui-draggable-handle glyphicon glyphicon-text-width\"></div></div>');
+    $('#newTitle').append('<div customType="title" style=\"position: relative;\" class="grid-stack-item ui-draggable"><div class=\"grid-stack-item-content ui-draggable-handle glyphicon glyphicon-text-width\"></div></div>');
     $('.sidebar .grid-stack-item').draggable({
       revert: 'invalid',
       handle: '.grid-stack-item-content',
@@ -103,7 +108,7 @@ $('#newTitle').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
 });
 $('#newText').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
   if (event.type != 'DOMNodeInserted') {
-    $('#newText').append('<div style=\"position: relative;\" class="grid-stack-item ui-draggable"><div class=\"grid-stack-item-content ui-draggable-handle glyphicon glyphicon-pencil\"></div></div>');
+    $('#newText').append('<div customType="text" style=\"position: relative;\" class="grid-stack-item ui-draggable"><div class=\"grid-stack-item-content ui-draggable-handle glyphicon glyphicon-pencil\"></div></div>');
     $('.sidebar .grid-stack-item').draggable({
       revert: 'invalid',
       handle: '.grid-stack-item-content',
@@ -114,7 +119,7 @@ $('#newText').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
 });
 $('#newImage').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
   if (event.type != 'DOMNodeInserted') {
-    $('#newImage').append('<div style=\"position: relative;\" class="grid-stack-item ui-draggable"><div class=\"grid-stack-item-content ui-draggable-handle glyphicon glyphicon-picture\"></div></div>');
+    $('#newImage').append('<div customType="image" style=\"position: relative;\" class="grid-stack-item ui-draggable"><div class=\"grid-stack-item-content ui-draggable-handle glyphicon glyphicon-picture\"></div></div>');
     $('.sidebar .grid-stack-item').draggable({
       revert: 'invalid',
       handle: '.grid-stack-item-content',
@@ -125,7 +130,7 @@ $('#newImage').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
 });
 $('#newComment').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
   if (event.type != 'DOMNodeInserted') {
-    $('#newComment').append('<div style=\"position: relative;\" class="grid-stack-item ui-draggable"><div class=\"grid-stack-item-content ui-draggable-handle glyphicon glyphicon-comment\"></div></div>');
+    $('#newComment').append('<div customType="comments" style=\"position: relative;\" class="grid-stack-item ui-draggable"><div class=\"grid-stack-item-content ui-draggable-handle glyphicon glyphicon-comment\"></div></div>');
     $('.sidebar .grid-stack-item').draggable({
       revert: 'invalid',
       handle: '.grid-stack-item-content',
@@ -134,9 +139,20 @@ $('#newComment').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
     });
   }
 });
-$('#newIndex').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
+$('#newVideo').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
   if (event.type != 'DOMNodeInserted') {
-    $('#newIndex').append('<div style=\"position: relative;\" class="grid-stack-item ui-draggable"><div class=\"grid-stack-item-content ui-draggable-handle glyphicon glyphicon-align-left\"></div></div>');
+    $('#newVideo').append('<div customType="video" style=\"position: relative;\" class="grid-stack-item ui-draggable"><div class=\"grid-stack-item-content ui-draggable-handle glyphicon glyphicon-facetime-video\"></div></div>');
+    $('.sidebar .grid-stack-item').draggable({
+      revert: 'invalid',
+      handle: '.grid-stack-item-content',
+      scroll: false,
+      appendTo: 'body'
+    });
+  }
+});
+$('#newTag').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
+  if (event.type != 'DOMNodeInserted') {
+    $('#newTag').append('<div customType="tag" style=\"position: relative;\" class="grid-stack-item ui-draggable"><div class=\"grid-stack-item-content ui-draggable-handle glyphicon glyphicon-tags\"></div></div>');
     $('.sidebar .grid-stack-item').draggable({
       revert: 'invalid',
       handle: '.grid-stack-item-content',
