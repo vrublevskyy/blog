@@ -111,13 +111,26 @@ const getEntry = function (request, reply) {
       console.log(err)
       return reply.redirect('/login')
     }
-
   })
 };
 
 const addComment = function (request, reply) {
 
 }
+
+
+const getAllEntries = function (request, reply) {
+
+  entryController.getAllEntries(request.payload.documentID,function (err,data) {
+    if (!err) {
+      reply(data);
+    }else {
+      console.log(err)
+      reply(err)
+    }
+  })
+}
+
 
 module.exports.home= home;
 module.exports.logout= logout;

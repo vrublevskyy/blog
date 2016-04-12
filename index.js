@@ -137,7 +137,8 @@ server.connection({
     { method: 'GET', path: '/view/{documentId?}', config: { handler: handler.view } },
     { method: ['GET', 'POST'], path: '/editEntry/{documentId?}', config: { handler: handler.editEntry } },
     { method: ['POST'], path: '/getEntry', config: { handler: handler.getEntry } },
-    { method: ['POST'], path: '/addComment', config: { handler: handler.addComment } }
+    { method: ['POST'], path: '/addComment', config: { handler: handler.addComment } },
+    { method: ['GET'], path: '/getAllEntries', config: { handler: handler.getAllEntries } }
   ]);
 
   server.start(() => {
