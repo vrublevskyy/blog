@@ -80,7 +80,7 @@ function loadByID() {
               var content=""
               if (node.data.content) {
                 if (typeof node.data.content === 'object') {
-                    content = JSON.stringify(node.data.content);
+                    content = JSON.stringify(node.data.content).replace(/\[|\]|\"/g, '');
                 }
                 else {
                   content = node.data.content;
