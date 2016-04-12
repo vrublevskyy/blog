@@ -1,14 +1,7 @@
 function loadByID() {
-  var options = {
-    width: 6,
-    float: false,
-    removeTimeout: 100
-  };
-  $('#grid1').gridstack(options);
 
-  const documentID=document.getElementById("documentID").text
   $.ajax({
-    url: 'https://www.paradisecity.me:8082/getEntry',
+    url: 'https://www.paradisecity.me:8082/getAllEntries',
     type: 'GET',
     dataType: 'json',
     success: function(reply) {
