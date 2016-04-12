@@ -65,7 +65,7 @@ function loadByID() {
                   <div class=\"col-xs-9\">   \
                     <p></p>    \
                       <p class=\"lead\"><button  onclick=\"readMore("+id+")\" class=\"btn btn-default\">Read More</button></p>   \
-                      <p class=\"pull-right\"><span class=\"label label-default\">"+tags"</span> \
+                      <p class=\"pull-right\"><span class=\"label label-default\">"+tags+"</span> \
                       <ul class=\"list-inline\"><li><a> "+date+"</a></li><li><a><i class=\"glyphicon glyphicon-comment\"></i> "+comments+" Comments</a></li><li><a><i class=\"glyphicon glyphicon-user\"></i>Author "+author+"</a></li></ul>   \
                     </div>   \
                     <div class=\"col-xs-3\"></div>  \
