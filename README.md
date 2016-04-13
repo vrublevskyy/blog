@@ -43,4 +43,9 @@ que se ejecuta en docker en loclahost.
 El servidor web esta implementado con hapijs (http://hapijs.com/).
 Tiene certificados autofirmados. Para gestionar el estado de la conexion se utiliza el plugin hapi-auth-cookie que permite gestionar la autenticación.
     
+    
+En https://www.paradisecity.me:8082/ se puede acceder a la pagina para probarlo.
+Se puede crear nuevo usuario o acceder con:
+usuario: testUser2
+pass: 1234
  
