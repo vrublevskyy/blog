@@ -30,17 +30,17 @@ Estructura del proyecto:
     / controllers  -> controlador de la base de datos
     
     
-    ### MongoDB
+### MongoDB
     
-    Para conectarse a mongoDB se utiliza mongoose
+Para conectarse a mongoDB se utiliza mongoose
     
-      mongoose.connect('mongodb://localhost/blog');
+   mongoose.connect('mongodb://localhost/blog');
       
-    que se ejecuta en docker en loclahost.
+que se ejecuta en docker en loclahost.
     
-    ### Servidor Web
+### Servidor Web
     
-    El servidor web esta implementado con hapijs (http://hapijs.com/).
-    Tiene certificados autofirmados. Para gestionar el estado de la conexion se utiliza el plugin hapi-auth-cookie que permite gestionar la autenticación.
+El servidor web esta implementado con hapijs (http://hapijs.com/).
+Tiene certificados autofirmados. Para gestionar el estado de la conexion se utiliza el plugin hapi-auth-cookie que permite gestionar la autenticación.
     
  
